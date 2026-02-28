@@ -1,0 +1,11 @@
+torch>=2.0
+torchaudio
+transformers>=4.40
+peft>=0.10
+accelerate
+deepspeed
+soundfile
+librosa
+wandb
+tqdm
+pyyaml

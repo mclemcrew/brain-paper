@@ -1,0 +1,11 @@
+{
+  "dataset_type": "audio_dir",
+  "datasets": [
+    {
+      "id": "training_dataset",
+      "path": "/path/to/dataset",
+      "custom_metadata_module": "/path/to/configs/prompt_loading.py"
+    }
+  ],
+  "random_crop": true
+}
