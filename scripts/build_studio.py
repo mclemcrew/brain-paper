@@ -29,7 +29,9 @@ run(sys.executable, '-m', 'PyInstaller', '--noconfirm', '--clean', '--name', 'ra
     'scripts/local_entry.py')
 resources = ROOT / 'desktop/src-tauri/resources/ravi-local'
 if resources.exists(): shutil.rmtree(resources)  # Generated bundle only; avoid stale excluded dependencies.
-shutil.copytree(ROOT / '.build/dist/ravi-local', resources, dirs_exist_ok=True)
+# Preserve PyInstaller's symlinks: _internal/libmlx.dylib -> mlx/lib/libmlx.dylib. A real copy at the top
+# level loads from there, finds no mlx.metallib beside it, and the worker aborts (SIGTRAP) before any output.
+shutil.copytree(ROOT / '.build/dist/ravi-local', resources, dirs_exist_ok=True, symlinks=True)
 env = dict(os.environ)
 local_cargo = ROOT / '.local-runtime/cargo'
 if local_cargo.exists():
@@ -42,3 +44,10 @@ run('npm', 'run', 'tauri', '--', 'build', cwd=ROOT / 'desktop', env=env)
 app = ROOT / 'desktop/src-tauri/target/release/bundle/macos/rAvI Studio.app'
 run('codesign', '--force', '--deep', '--sign', '-', app)
 run('codesign', '--verify', '--deep', '--strict', app)
+# The bundler must keep the symlink (or a metallib must sit beside the loaded dylib), else MLX cannot start.
+internal = app / 'Contents/Resources/resources/ravi-local/_internal'
+if not (internal / 'libmlx.dylib').is_symlink() and not (internal / 'mlx.metallib').is_file():
+    shutil.copy2(internal / 'mlx/lib/mlx.metallib', internal / 'mlx.metallib')
+    run('codesign', '--force', '--deep', '--sign', '-', app)
+    run('codesign', '--verify', '--deep', '--strict', app)
+    print('note: bundler flattened symlinks; copied mlx.metallib beside the top-level libmlx.dylib')
