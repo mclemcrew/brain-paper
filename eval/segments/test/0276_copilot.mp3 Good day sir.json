@@ -1,0 +1,25 @@
+{
+  "track_id": "0276_copilot.mp3 Good day sir",
+  "tool": "human",
+  "bpm": null,
+  "beats": null,
+  "downbeats": null,
+  "segments": [
+    {
+      "start": 0.0,
+      "end": 16.0,
+      "label": "intro"
+    },
+    {
+      "start": 16.0,
+      "end": 31.935484,
+      "label": "verse"
+    },
+    {
+      "start": 31.935484,
+      "end": 61.752,
+      "label": "bridge"
+    }
+  ],
+  "duration": 61.7552
+}

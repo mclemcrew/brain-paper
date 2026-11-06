@@ -1,0 +1,35 @@
+{
+  "track_id": "0277_copilot.mp3 Jam uplift",
+  "tool": "human",
+  "bpm": null,
+  "beats": null,
+  "downbeats": null,
+  "segments": [
+    {
+      "start": 0.0,
+      "end": 31.473265,
+      "label": "intro"
+    },
+    {
+      "start": 31.473265,
+      "end": 46.787438,
+      "label": "verse"
+    },
+    {
+      "start": 46.787438,
+      "end": 62.101611,
+      "label": "bridge"
+    },
+    {
+      "start": 62.101611,
+      "end": 89.878352,
+      "label": "chorus"
+    },
+    {
+      "start": 89.878352,
+      "end": 101.0,
+      "label": "outro"
+    }
+  ],
+  "duration": 101.4992
+}

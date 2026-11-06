@@ -1,0 +1,30 @@
+{
+  "track_id": "0573_copilot.mp3 Silly Strut",
+  "tool": "human",
+  "bpm": null,
+  "beats": null,
+  "downbeats": null,
+  "segments": [
+    {
+      "start": 0.0,
+      "end": 4.851347,
+      "label": "intro"
+    },
+    {
+      "start": 4.851347,
+      "end": 17.674789,
+      "label": "verse"
+    },
+    {
+      "start": 17.674789,
+      "end": 21.987097,
+      "label": "transition"
+    },
+    {
+      "start": 21.987097,
+      "end": 27.264,
+      "label": "verse"
+    }
+  ],
+  "duration": 27.2672
+}

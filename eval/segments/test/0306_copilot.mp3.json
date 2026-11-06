@@ -1,0 +1,25 @@
+{
+  "track_id": "0306_copilot.mp3",
+  "tool": "human",
+  "bpm": null,
+  "beats": null,
+  "downbeats": null,
+  "segments": [
+    {
+      "start": 0.0,
+      "end": 13.345848,
+      "label": "intro"
+    },
+    {
+      "start": 13.345848,
+      "end": 21.097798,
+      "label": "verse"
+    },
+    {
+      "start": 21.097798,
+      "end": 27.288,
+      "label": "transition"
+    }
+  ],
+  "duration": 27.2912
+}

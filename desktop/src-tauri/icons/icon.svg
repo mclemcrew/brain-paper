@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1024" height="1024" viewBox="0 0 1024 1024">
+<title>rAvI Studio — audio and metadata</title>
+<rect x="80" y="80" width="864" height="864" rx="196" fill="#f4f2e9"/>
+<g fill="none" stroke="#24645c" stroke-width="32" stroke-linecap="round" stroke-linejoin="round">
+<path d="M240 440v112m88-208v304m88-376v448m88-344v240m88-192v112"/>
+<path d="M624 600h112l96 96-120 120-96-96v-112a8 8 0 0 1 8-8Z"/>
+<circle cx="666" cy="650" r="8" stroke-width="20"/>
+</g>
+</svg>

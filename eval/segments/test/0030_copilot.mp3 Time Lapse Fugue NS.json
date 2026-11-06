@@ -1,0 +1,25 @@
+{
+  "track_id": "0030_copilot.mp3 Time Lapse Fugue NS",
+  "tool": "human",
+  "bpm": null,
+  "beats": null,
+  "downbeats": null,
+  "segments": [
+    {
+      "start": 0.0,
+      "end": 4.365028,
+      "label": "intro"
+    },
+    {
+      "start": 4.365028,
+      "end": 27.006393,
+      "label": "verse"
+    },
+    {
+      "start": 27.006393,
+      "end": 34.104,
+      "label": "outro"
+    }
+  ],
+  "duration": 34.1072
+}

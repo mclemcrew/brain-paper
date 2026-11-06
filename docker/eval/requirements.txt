@@ -1,0 +1,107 @@
+# rAvI v2 evaluation image (ravi.eval: embed / metrics / seams / stats / run_eval).
+#
+# Installed with `pip install --no-deps` on top of pytorch/pytorch:2.6.0-cuda12.4-cudnn9-runtime
+# (the captioner's base, same digest), which ships Python 3.11 with torch 2.6.0+cu124 and
+# torchaudio 2.6.0+cu124. torch, torchaudio, torchvision and torch's own deps (triton, nvidia-*,
+# sympy, mpmath, networkx) are therefore NOT listed here; the Dockerfile asserts torch/torchaudio
+# and installs torchvision==0.21.0+cu124 (laion_clap imports torchvision) from the PyTorch index.
+#
+# Resolved jointly with torch==2.6.0 torchaudio==2.6.0 torchvision==0.21.0 for CPython 3.11 /
+# manylinux x86_64 (2026-10-14):
+#   uv pip compile <top-level pins> --python-version 3.11 \
+#       --python-platform x86_64-manylinux_2_28 --exclude-newer 2025-07-01
+# (--exclude-newer: the ecosystem of transformers 4.52.4; same cut as docker/captioner).
+#
+# Top-level pins and why:
+#   laion-clap==1.1.7     latest release; CLAP_Module(enable_fusion=False, amodel='HTSAT-base')
+#                         + load_ckpt() for music_audioset_epoch_15_esc_90.14.pt (README). Its
+#                         metadata requires numpy<2.0.0, hence numpy 1.26.4. 1.1.7's
+#                         load_state_dict() calls torch.load(..., weights_only=False) itself and
+#                         drops text_branch.embeddings.position_ids for transformers >= 4.31
+#                         (clap_module/factory.py), so the checkpoint needs no patching (fadtk
+#                         only patches for laion_clap < 1.1.6).
+#   transformers==4.52.4  MERT-v1-95M remote code imports eight classes from
+#                         transformers.models.hubert.modeling_hubert, all present in 4.52.4
+#                         (checked in the wheel); RobertaModel's position_ids buffer is
+#                         non-persistent there, matching laion_clap's key drop. Same version as
+#                         the captioner image.
+#   librosa==0.11.0       beat_track(bpm=<per-frame array>), feature.tempo(aggregate=None),
+#                         chroma_cqt / chroma_stft / mfcc keyword APIs used by ravi.eval.seams
+#                         (checked in the 0.11.0 wheel; the dev venv runs 1.0.0, same calls).
+#   scipy==1.15.3         stats.wilcoxon(x, y, zero_method, alternative, method), spatial pdist,
+#                         signal.resample_poly.
+#   soundfile, pandas, pyarrow   WAV I/O and the parquet/CSV outputs (same pins as docker/captioner).
+#   huggingface-hub==0.33.1      hf_hub_download for the CLAP checkpoint (+ huggingface-cli).
+#   pyloudnorm==0.1.1     BS.1770 integrated loudness for the -16 LUFS normalisation before CLAP
+#                         (ravi.eval.embed.lufs_normalise = ravi.data.prepare_audio.normalise);
+#                         0.1.1 is the last release before the cut and requires future.
+# laion-clap's metadata also pulls wandb/webdataset/h5py/ftfy/... ; they are installed so its
+# requirements are met (the build checks this) although the inference path does not use wandb.
+# nnAudio is not installed: MERT's remote code only needs it for the CQT variant (v1-95M has
+# feature_extractor_cqt=false) and prints a harmless warning without it.
+annotated-types==0.7.0
+audioread==3.0.1
+braceexpand==0.1.7
+certifi==2025.6.15
+cffi==1.17.1
+charset-normalizer==3.4.2
+click==8.2.1
+decorator==5.2.1
+filelock==3.18.0
+fsspec==2025.5.1
+ftfy==6.3.1
+future==1.0.0
+gitdb==4.0.12
+gitpython==3.1.44
+h5py==3.14.0
+hf-xet==1.1.5
+huggingface-hub==0.33.1
+idna==3.10
+jinja2==3.1.6
+joblib==1.5.1
+laion-clap==1.1.7
+lazy-loader==0.4
+librosa==0.11.0
+llvmlite==0.44.0
+markupsafe==3.0.2
+msgpack==1.1.1
+numba==0.61.2
+numpy==1.26.4
+packaging==25.0
+pandas==2.2.3
+pillow==11.3.0
+platformdirs==4.3.8
+pooch==1.8.2
+progressbar==2.5
+protobuf==6.31.1
+pyarrow==19.0.1
+pycparser==2.22
+pydantic==2.11.7
+pydantic-core==2.33.2
+pyloudnorm==0.1.1
+python-dateutil==2.9.0.post0
+pytz==2025.2
+pyyaml==6.0.2
+regex==2024.11.6
+requests==2.32.4
+safetensors==0.5.3
+scikit-learn==1.7.0
+scipy==1.15.3
+sentry-sdk==2.32.0
+six==1.17.0
+smmap==5.0.2
+soundfile==0.13.1
+soxr==0.5.0.post1
+threadpoolctl==3.6.0
+tokenizers==0.21.2
+torchlibrosa==0.1.0
+tqdm==4.67.1
+transformers==4.52.4
+typing-extensions==4.14.0
+typing-inspection==0.4.1
+tzdata==2025.2
+urllib3==2.5.0
+wandb==0.21.0
+wcwidth==0.2.13
+webdataset==1.0.2
+wget==3.2

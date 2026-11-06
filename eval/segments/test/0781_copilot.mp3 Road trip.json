@@ -1,0 +1,30 @@
+{
+  "track_id": "0781_copilot.mp3 Road trip",
+  "tool": "human",
+  "bpm": null,
+  "beats": null,
+  "downbeats": null,
+  "segments": [
+    {
+      "start": 0.0,
+      "end": 48.193548,
+      "label": "verse"
+    },
+    {
+      "start": 48.193548,
+      "end": 50.903226,
+      "label": "bridge"
+    },
+    {
+      "start": 50.903226,
+      "end": 54.83871,
+      "label": "transition"
+    },
+    {
+      "start": 54.83871,
+      "end": 61.56,
+      "label": "bridge"
+    }
+  ],
+  "duration": 61.5632
+}

@@ -1,0 +1,30 @@
+{
+  "track_id": "0065_copilot.mp3 Best Day Ever NS",
+  "tool": "human",
+  "bpm": null,
+  "beats": null,
+  "downbeats": null,
+  "segments": [
+    {
+      "start": 0.0,
+      "end": 28.428387,
+      "label": "verse"
+    },
+    {
+      "start": 28.428387,
+      "end": 49.618065,
+      "label": "bridge"
+    },
+    {
+      "start": 49.618065,
+      "end": 59.554839,
+      "label": "verse"
+    },
+    {
+      "start": 59.554839,
+      "end": 63.24,
+      "label": "outro"
+    }
+  ],
+  "duration": 63.2432
+}

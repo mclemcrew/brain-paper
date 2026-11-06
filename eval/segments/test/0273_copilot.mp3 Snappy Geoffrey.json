@@ -1,0 +1,25 @@
+{
+  "track_id": "0273_copilot.mp3 Snappy Geoffrey",
+  "tool": "human",
+  "bpm": null,
+  "beats": null,
+  "downbeats": null,
+  "segments": [
+    {
+      "start": 0.0,
+      "end": 14.980229,
+      "label": "intro"
+    },
+    {
+      "start": 14.980229,
+      "end": 45.131113,
+      "label": "verse"
+    },
+    {
+      "start": 45.131113,
+      "end": 60.7712,
+      "label": "outro"
+    }
+  ],
+  "duration": 60.7712
+}

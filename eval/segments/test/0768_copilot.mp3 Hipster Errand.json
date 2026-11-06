@@ -1,0 +1,25 @@
+{
+  "track_id": "0768_copilot.mp3 Hipster Errand",
+  "tool": "human",
+  "bpm": null,
+  "beats": null,
+  "downbeats": null,
+  "segments": [
+    {
+      "start": 0.0,
+      "end": 16.260912,
+      "label": "intro"
+    },
+    {
+      "start": 16.260912,
+      "end": 26.686851,
+      "label": "verse"
+    },
+    {
+      "start": 26.686851,
+      "end": 28.464,
+      "label": "outro"
+    }
+  ],
+  "duration": 28.4672
+}

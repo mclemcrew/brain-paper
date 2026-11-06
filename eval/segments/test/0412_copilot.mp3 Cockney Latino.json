@@ -1,0 +1,35 @@
+{
+  "track_id": "0412_copilot.mp3 Cockney Latino",
+  "tool": "human",
+  "bpm": null,
+  "beats": null,
+  "downbeats": null,
+  "segments": [
+    {
+      "start": 0.0,
+      "end": 1.337607,
+      "label": "intro"
+    },
+    {
+      "start": 1.337607,
+      "end": 14.178631,
+      "label": "verse"
+    },
+    {
+      "start": 14.178631,
+      "end": 15.917519,
+      "label": "transition"
+    },
+    {
+      "start": 15.917519,
+      "end": 29.728308,
+      "label": "verse"
+    },
+    {
+      "start": 29.728308,
+      "end": 32.136,
+      "label": "outro"
+    }
+  ],
+  "duration": 32.1392
+}

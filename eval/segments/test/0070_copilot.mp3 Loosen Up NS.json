@@ -1,0 +1,40 @@
+{
+  "track_id": "0070_copilot.mp3 Loosen Up NS",
+  "tool": "human",
+  "bpm": null,
+  "beats": null,
+  "downbeats": null,
+  "segments": [
+    {
+      "start": 0.0,
+      "end": 8.091571,
+      "label": "intro"
+    },
+    {
+      "start": 8.091571,
+      "end": 12.980229,
+      "label": "verse"
+    },
+    {
+      "start": 12.980229,
+      "end": 18.678044,
+      "label": "transition"
+    },
+    {
+      "start": 18.678044,
+      "end": 22.926119,
+      "label": "verse"
+    },
+    {
+      "start": 22.926119,
+      "end": 25.522164,
+      "label": "transition"
+    },
+    {
+      "start": 25.522164,
+      "end": 32.4,
+      "label": "verse"
+    }
+  ],
+  "duration": 32.4032
+}

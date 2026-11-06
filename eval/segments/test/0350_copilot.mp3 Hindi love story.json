@@ -1,0 +1,30 @@
+{
+  "track_id": "0350_copilot.mp3 Hindi love story",
+  "tool": "human",
+  "bpm": null,
+  "beats": null,
+  "downbeats": null,
+  "segments": [
+    {
+      "start": 0.0,
+      "end": 8.690198,
+      "label": "intro"
+    },
+    {
+      "start": 8.690198,
+      "end": 30.126019,
+      "label": "verse"
+    },
+    {
+      "start": 30.126019,
+      "end": 32.443405,
+      "label": "transition"
+    },
+    {
+      "start": 32.443405,
+      "end": 39.768,
+      "label": "outro"
+    }
+  ],
+  "duration": 39.7712
+}

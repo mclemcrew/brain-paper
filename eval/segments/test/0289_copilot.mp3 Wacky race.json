@@ -1,0 +1,30 @@
+{
+  "track_id": "0289_copilot.mp3 Wacky race",
+  "tool": "human",
+  "bpm": null,
+  "beats": null,
+  "downbeats": null,
+  "segments": [
+    {
+      "start": 0.0,
+      "end": 1.968949,
+      "label": "intro"
+    },
+    {
+      "start": 1.968949,
+      "end": 26.055759,
+      "label": "verse"
+    },
+    {
+      "start": 26.055759,
+      "end": 27.827813,
+      "label": "transition"
+    },
+    {
+      "start": 27.827813,
+      "end": 31.536,
+      "label": "outro"
+    }
+  ],
+  "duration": 31.5392
+}

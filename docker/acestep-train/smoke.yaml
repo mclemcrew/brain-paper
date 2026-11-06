@@ -1,0 +1,28 @@
+# 20-clip smoke run of the ACE-Step 1.5 LoRA image (Phase 2.4): arm E captions
+# (B + "sections:" rendered as lyric section tags), turbo, the tier-1 LoRA settings.
+# Paths are container paths; SMOKE.md bind-mounts the host dirs onto them.
+arm: E_smoke
+smoke: true
+data_dir: /data/train            # ACE-Step per-file layout from ravi.captions.make_acestep_dataset --limit 20
+model_variant: turbo             # serving target (8 steps, shift 3); base is the documented alternative
+rank: 64
+alpha: 128
+dropout: 0.1
+target_modules: [q_proj, k_proj, v_proj, o_proj]
+attention_type: both
+lr: 1.0e-4
+batch_size: 1
+grad_accum: 4
+cfg_ratio: 0.15
+gradient_checkpointing: true
+steps: 100                       # 20 clips -> ceil(20 / (1 * 4)) = 5 steps/epoch -> 20 epochs = exactly 100 steps
+checkpoint_every_steps: 50       # -> --save-every 10 (epochs 10 and 20)
+warmup_steps: 10                 # the full-run default (100) would be the whole smoke run
+scheduler: cosine
+log_every: 5                     # one loss line every 5 optimizer steps = every epoch
+seed: 42
+num_workers: 3                   # 4 vCPUs on a g6e.xlarge, 8 on a g5.2xlarge; the tensors are small
+precision: bf16
+require_flash_attn: true
+resume: none                     # SMOKE.md section 8 reruns with --set resume=auto
+# s3_out: s3://uaudio-ravi-corpus-dev-297416720456/adapters/acestep-smoke

@@ -1,0 +1,30 @@
+{
+  "track_id": "0080_copilot.mp3 Woodwind Suite NS",
+  "tool": "human",
+  "bpm": null,
+  "beats": null,
+  "downbeats": null,
+  "segments": [
+    {
+      "start": 0.0,
+      "end": 4.140637,
+      "label": "intro"
+    },
+    {
+      "start": 4.140637,
+      "end": 18.055892,
+      "label": "verse"
+    },
+    {
+      "start": 18.055892,
+      "end": 25.828071,
+      "label": "transition"
+    },
+    {
+      "start": 25.828071,
+      "end": 32.616,
+      "label": "verse"
+    }
+  ],
+  "duration": 32.6192
+}

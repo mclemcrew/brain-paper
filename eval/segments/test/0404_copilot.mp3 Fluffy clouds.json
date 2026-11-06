@@ -1,0 +1,40 @@
+{
+  "track_id": "0404_copilot.mp3 Fluffy clouds",
+  "tool": "human",
+  "bpm": null,
+  "beats": null,
+  "downbeats": null,
+  "segments": [
+    {
+      "start": 0.0,
+      "end": 5.03046,
+      "label": "intro"
+    },
+    {
+      "start": 5.03046,
+      "end": 15.193349,
+      "label": "verse"
+    },
+    {
+      "start": 15.193349,
+      "end": 19.442048,
+      "label": "transition"
+    },
+    {
+      "start": 19.442048,
+      "end": 25.220279,
+      "label": "verse"
+    },
+    {
+      "start": 25.220279,
+      "end": 26.81779,
+      "label": "transition"
+    },
+    {
+      "start": 26.81779,
+      "end": 32.664,
+      "label": "verse"
+    }
+  ],
+  "duration": 32.6672
+}

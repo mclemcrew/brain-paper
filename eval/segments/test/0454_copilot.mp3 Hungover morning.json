@@ -1,0 +1,30 @@
+{
+  "track_id": "0454_copilot.mp3 Hungover morning",
+  "tool": "human",
+  "bpm": null,
+  "beats": null,
+  "downbeats": null,
+  "segments": [
+    {
+      "start": 0.0,
+      "end": 12.987097,
+      "label": "intro"
+    },
+    {
+      "start": 12.987097,
+      "end": 25.136316,
+      "label": "verse"
+    },
+    {
+      "start": 25.136316,
+      "end": 28.183143,
+      "label": "transition"
+    },
+    {
+      "start": 28.183143,
+      "end": 36.6,
+      "label": "verse"
+    }
+  ],
+  "duration": 36.6032
+}

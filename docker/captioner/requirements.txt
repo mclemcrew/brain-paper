@@ -1,0 +1,69 @@
+# rAvI v2 captioner image (ravi.captions.autocaption): MiDashengLM-7B / Qwen2.5-Omni-7B.
+#
+# Installed with `pip install --no-deps` on top of pytorch/pytorch:2.6.0-cuda12.4-cudnn9-runtime,
+# which already ships torch 2.6.0+cu124 and torchaudio 2.6.0+cu124 under Python 3.11
+# (checked in the image layer: opt/conda/lib/python3.11/site-packages/torch{,audio}-2.6.0+cu124.dist-info).
+# torch, torchaudio and torch's own deps (triton, nvidia-*, sympy, mpmath, networkx) are therefore
+# NOT listed here; the Dockerfile asserts their versions instead.
+#
+# Resolved jointly with torch==2.6.0 torchaudio==2.6.0 for CPython 3.11 / manylinux x86_64:
+#   uv pip compile <top-level pins> --python-version 3.11 \
+#       --python-platform x86_64-manylinux_2_28 --exclude-newer 2025-07-01
+# (--exclude-newer: the ecosystem as of transformers 4.52.4, released 2025-05-30).
+#
+# Top-level pins and why:
+#   transformers==4.52.4  the `transformers_version` in MiDashengLM's config.json and
+#                         generation_config.json. Its remote code imports Qwen2_5OmniTextConfig,
+#                         which first appears in 4.52 (absent in 4.51.3). Also the version the
+#                         Qwen2.5-Omni fallback is tested against here. Do not bump casually:
+#                         the Qwen2.5-Omni modules the remote code imports were refactored later.
+#   accelerate            device_map= for Qwen2.5-Omni (model card usage).
+#   librosa               transformers.audio_utils.load_audio calls requires_backends(["librosa"])
+#                         even when handed an ndarray (apply_chat_template path of MiDashengLM).
+#   soundfile, scipy      WAV read + polyphase resample to 16 kHz in ravi.captions.autocaption.
+#   pandas, pyarrow       manifest parquet. Same pins as docker/structure.
+accelerate==1.8.1
+audioread==3.0.1
+certifi==2025.6.15
+cffi==1.17.1
+charset-normalizer==3.4.2
+decorator==5.2.1
+filelock==3.18.0
+fsspec==2025.5.1
+hf-xet==1.1.5
+huggingface-hub==0.33.1
+idna==3.10
+jinja2==3.1.6
+joblib==1.5.1
+lazy-loader==0.4
+librosa==0.11.0
+llvmlite==0.44.0
+markupsafe==3.0.2
+msgpack==1.1.1
+numba==0.61.2
+numpy==2.2.6
+packaging==25.0
+pandas==2.2.3
+platformdirs==4.3.8
+pooch==1.8.2
+psutil==7.0.0
+pyarrow==19.0.1
+pycparser==2.22
+python-dateutil==2.9.0.post0
+pytz==2025.2
+pyyaml==6.0.2
+regex==2024.11.6
+requests==2.32.4
+safetensors==0.5.3
+scikit-learn==1.7.0
+scipy==1.16.0
+six==1.17.0
+soundfile==0.13.1
+soxr==0.5.0.post1
+threadpoolctl==3.6.0
+tokenizers==0.21.2
+tqdm==4.67.1
+transformers==4.52.4
+typing-extensions==4.14.0
+tzdata==2025.2
+urllib3==2.5.0

@@ -1,0 +1,38 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "ravi"
+version = "0.1.0"
+description = "rAvI v2 data and structure pipeline for the Building My Replacement corpus"
+requires-python = ">=3.10"
+dependencies = [
+    "pandas>=2.0",
+    "pyarrow>=14",
+    "numpy>=1.24",
+    "mutagen>=1.47",
+    "soundfile>=0.12",
+    "pyloudnorm>=0.1.1",
+    "tqdm>=4.66",
+    "mir_eval>=0.8",
+    "librosa>=0.10",  # chroma features for near-duplicate detection (ravi.data.audio_similarity)
+    "scipy>=1.11",  # polyphase oversampling for true-peak estimation
+    "pytest>=8",
+]
+
+# External CLI dependency: ffmpeg / ffprobe must be on PATH.
+
+[tool.setuptools.packages.find]
+include = ["ravi*"]
+
+[project.optional-dependencies]
+studio = ["tokenizers>=0.21,<0.23", "onnxruntime>=1.20", "psutil>=6", "huggingface-hub>=0.30", "sentencepiece>=0.2", "pillow>=10", "safetensors>=0.4", "tqdm>=4.66", "mlx>=0.30; sys_platform == 'darwin' and platform_machine == 'arm64'"]
+midi = ["onnxruntime>=1.20", "pretty-midi>=0.2.10", "resampy>=0.4"]
+package = ["pyinstaller>=6"]
+
+[project.scripts]
+ravi-studio = "ravi.local.server:main"
+
+[tool.pytest.ini_options]
+testpaths = ["ravi/tests"]

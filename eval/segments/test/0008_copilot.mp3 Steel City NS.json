@@ -1,0 +1,30 @@
+{
+  "track_id": "0008_copilot.mp3 Steel City NS",
+  "tool": "human",
+  "bpm": null,
+  "beats": null,
+  "downbeats": null,
+  "segments": [
+    {
+      "start": 0.0,
+      "end": 3.543509,
+      "label": "intro"
+    },
+    {
+      "start": 3.543509,
+      "end": 24.693827,
+      "label": "verse"
+    },
+    {
+      "start": 24.693827,
+      "end": 27.942044,
+      "label": "transition"
+    },
+    {
+      "start": 27.942044,
+      "end": 35.472,
+      "label": "outro"
+    }
+  ],
+  "duration": 35.4752
+}

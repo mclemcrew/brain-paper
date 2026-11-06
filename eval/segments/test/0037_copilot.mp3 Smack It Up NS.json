@@ -1,0 +1,30 @@
+{
+  "track_id": "0037_copilot.mp3 Smack It Up NS",
+  "tool": "human",
+  "bpm": null,
+  "beats": null,
+  "downbeats": null,
+  "segments": [
+    {
+      "start": 0.0,
+      "end": 3.27866,
+      "label": "intro"
+    },
+    {
+      "start": 3.27866,
+      "end": 15.714955,
+      "label": "verse"
+    },
+    {
+      "start": 15.714955,
+      "end": 31.354539,
+      "label": "bridge"
+    },
+    {
+      "start": 31.354539,
+      "end": 36.216,
+      "label": "outro"
+    }
+  ],
+  "duration": 36.2192
+}

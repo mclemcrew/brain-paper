@@ -1,0 +1,35 @@
+{
+  "track_id": "0212_copilot.mp3 Solvin' Mysteries",
+  "tool": "human",
+  "bpm": null,
+  "beats": null,
+  "downbeats": null,
+  "segments": [
+    {
+      "start": 0.0,
+      "end": 3.935484,
+      "label": "intro"
+    },
+    {
+      "start": 3.935484,
+      "end": 19.354839,
+      "label": "verse"
+    },
+    {
+      "start": 19.354839,
+      "end": 43.096774,
+      "label": "bridge"
+    },
+    {
+      "start": 43.096774,
+      "end": 56.903226,
+      "label": "verse"
+    },
+    {
+      "start": 56.903226,
+      "end": 61.5392,
+      "label": "outro"
+    }
+  ],
+  "duration": 61.5392
+}

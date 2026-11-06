@@ -1,0 +1,25 @@
+{
+  "track_id": "0069_copilot.mp3 We Built This NS",
+  "tool": "human",
+  "bpm": null,
+  "beats": null,
+  "downbeats": null,
+  "segments": [
+    {
+      "start": 0.0,
+      "end": 36.674123,
+      "label": "intro"
+    },
+    {
+      "start": 36.674123,
+      "end": 54.322314,
+      "label": "verse"
+    },
+    {
+      "start": 54.322314,
+      "end": 63.048,
+      "label": "outro"
+    }
+  ],
+  "duration": 63.0512
+}

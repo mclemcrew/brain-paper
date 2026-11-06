@@ -1,0 +1,40 @@
+{
+  "track_id": "0813_copilot.mp3 Into the unknown",
+  "tool": "human",
+  "bpm": null,
+  "beats": null,
+  "downbeats": null,
+  "segments": [
+    {
+      "start": 0.0,
+      "end": 4.002006,
+      "label": "intro"
+    },
+    {
+      "start": 4.002006,
+      "end": 16.346223,
+      "label": "verse"
+    },
+    {
+      "start": 16.346223,
+      "end": 27.844945,
+      "label": "bridge"
+    },
+    {
+      "start": 27.844945,
+      "end": 36.187155,
+      "label": "transition"
+    },
+    {
+      "start": 36.187155,
+      "end": 48.24954,
+      "label": "verse"
+    },
+    {
+      "start": 48.24954,
+      "end": 53.942535,
+      "label": "outro"
+    }
+  ],
+  "duration": 54.1712
+}

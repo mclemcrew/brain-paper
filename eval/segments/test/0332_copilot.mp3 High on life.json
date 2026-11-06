@@ -1,0 +1,30 @@
+{
+  "track_id": "0332_copilot.mp3 High on life",
+  "tool": "human",
+  "bpm": null,
+  "beats": null,
+  "downbeats": null,
+  "segments": [
+    {
+      "start": 0.0,
+      "end": 16.244537,
+      "label": "intro"
+    },
+    {
+      "start": 16.244537,
+      "end": 48.594173,
+      "label": "chorus"
+    },
+    {
+      "start": 48.594173,
+      "end": 50.406868,
+      "label": "transition"
+    },
+    {
+      "start": 50.406868,
+      "end": 66.5792,
+      "label": "bridge"
+    }
+  ],
+  "duration": 66.5792
+}

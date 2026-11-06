@@ -1,0 +1,40 @@
+{
+  "track_id": "0489_copilot",
+  "tool": "human",
+  "bpm": null,
+  "beats": null,
+  "downbeats": null,
+  "segments": [
+    {
+      "start": 0.0,
+      "end": 5.31831,
+      "label": "intro"
+    },
+    {
+      "start": 5.31831,
+      "end": 30.936999,
+      "label": "verse"
+    },
+    {
+      "start": 30.936999,
+      "end": 43.973344,
+      "label": "bridge"
+    },
+    {
+      "start": 43.973344,
+      "end": 45.983925,
+      "label": "transition"
+    },
+    {
+      "start": 45.983925,
+      "end": 59.2797,
+      "label": "verse"
+    },
+    {
+      "start": 59.2797,
+      "end": 62.328,
+      "label": "outro"
+    }
+  ],
+  "duration": 62.3312
+}

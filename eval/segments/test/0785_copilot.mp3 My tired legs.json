@@ -1,0 +1,30 @@
+{
+  "track_id": "0785_copilot.mp3 My tired legs",
+  "tool": "human",
+  "bpm": null,
+  "beats": null,
+  "downbeats": null,
+  "segments": [
+    {
+      "start": 0.0,
+      "end": 23.100937,
+      "label": "verse"
+    },
+    {
+      "start": 23.100937,
+      "end": 44.516129,
+      "label": "chorus"
+    },
+    {
+      "start": 44.516129,
+      "end": 55.504683,
+      "label": "verse"
+    },
+    {
+      "start": 55.504683,
+      "end": 59.592,
+      "label": "outro"
+    }
+  ],
+  "duration": 59.5952
+}

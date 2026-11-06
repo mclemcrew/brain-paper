@@ -1,0 +1,25 @@
+{
+  "track_id": "0382_copilot.mp3 The Cool crowd",
+  "tool": "human",
+  "bpm": null,
+  "beats": null,
+  "downbeats": null,
+  "segments": [
+    {
+      "start": 0.0,
+      "end": 16.785016,
+      "label": "intro"
+    },
+    {
+      "start": 16.785016,
+      "end": 28.765036,
+      "label": "verse"
+    },
+    {
+      "start": 28.765036,
+      "end": 31.2,
+      "label": "outro"
+    }
+  ],
+  "duration": 31.2032
+}

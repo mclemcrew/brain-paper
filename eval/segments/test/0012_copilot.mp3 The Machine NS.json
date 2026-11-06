@@ -1,0 +1,25 @@
+{
+  "track_id": "0012_copilot.mp3 The Machine NS",
+  "tool": "human",
+  "bpm": null,
+  "beats": null,
+  "downbeats": null,
+  "segments": [
+    {
+      "start": 0.0,
+      "end": 5.013178,
+      "label": "intro"
+    },
+    {
+      "start": 5.013178,
+      "end": 27.982052,
+      "label": "verse"
+    },
+    {
+      "start": 27.982052,
+      "end": 31.488,
+      "label": "outro"
+    }
+  ],
+  "duration": 31.4912
+}

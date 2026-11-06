@@ -1,0 +1,25 @@
+{
+  "track_id": "0034_copilot NS",
+  "tool": "human",
+  "bpm": null,
+  "beats": null,
+  "downbeats": null,
+  "segments": [
+    {
+      "start": 0.0,
+      "end": 9.202914,
+      "label": "verse"
+    },
+    {
+      "start": 9.202914,
+      "end": 23.350676,
+      "label": "bridge"
+    },
+    {
+      "start": 23.350676,
+      "end": 33.0,
+      "label": "verse"
+    }
+  ],
+  "duration": 33.0032
+}

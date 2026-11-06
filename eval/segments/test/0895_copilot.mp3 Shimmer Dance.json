@@ -1,0 +1,25 @@
+{
+  "track_id": "0895_copilot.mp3 Shimmer Dance",
+  "tool": "human",
+  "bpm": null,
+  "beats": null,
+  "downbeats": null,
+  "segments": [
+    {
+      "start": 0.0,
+      "end": 15.691988,
+      "label": "intro"
+    },
+    {
+      "start": 15.691988,
+      "end": 53.298647,
+      "label": "verse"
+    },
+    {
+      "start": 53.298647,
+      "end": 64.9232,
+      "label": "outro"
+    }
+  ],
+  "duration": 64.9232
+}

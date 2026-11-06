@@ -1,0 +1,25 @@
+{
+  "track_id": "0799_copilot.mp3 Busy elves",
+  "tool": "human",
+  "bpm": null,
+  "beats": null,
+  "downbeats": null,
+  "segments": [
+    {
+      "start": 0.0,
+      "end": 9.67652,
+      "label": "intro"
+    },
+    {
+      "start": 9.67652,
+      "end": 29.029561,
+      "label": "verse"
+    },
+    {
+      "start": 29.029561,
+      "end": 31.416,
+      "label": "outro"
+    }
+  ],
+  "duration": 31.4192
+}

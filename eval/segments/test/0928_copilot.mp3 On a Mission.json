@@ -1,0 +1,25 @@
+{
+  "track_id": "0928_copilot.mp3 On a Mission",
+  "tool": "human",
+  "bpm": null,
+  "beats": null,
+  "downbeats": null,
+  "segments": [
+    {
+      "start": 0.0,
+      "end": 9.765702,
+      "label": "intro"
+    },
+    {
+      "start": 9.765702,
+      "end": 19.482331,
+      "label": "verse"
+    },
+    {
+      "start": 19.482331,
+      "end": 47.16,
+      "label": "chorus"
+    }
+  ],
+  "duration": 47.1632
+}

@@ -1,0 +1,30 @@
+{
+  "track_id": "0009_copilot.mp3 Tomorrow Knows NS",
+  "tool": "human",
+  "bpm": null,
+  "beats": null,
+  "downbeats": null,
+  "segments": [
+    {
+      "start": 0.0,
+      "end": 5.967484,
+      "label": "intro"
+    },
+    {
+      "start": 5.967484,
+      "end": 20.55871,
+      "label": "verse"
+    },
+    {
+      "start": 20.55871,
+      "end": 25.289032,
+      "label": "transition"
+    },
+    {
+      "start": 25.289032,
+      "end": 34.968,
+      "label": "outro"
+    }
+  ],
+  "duration": 34.9712
+}

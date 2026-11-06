@@ -1,0 +1,25 @@
+{
+  "track_id": "0022_copilot.mp3 Grown Up Now NS",
+  "tool": "human",
+  "bpm": null,
+  "beats": null,
+  "downbeats": null,
+  "segments": [
+    {
+      "start": 0.0,
+      "end": 14.356545,
+      "label": "intro"
+    },
+    {
+      "start": 14.356545,
+      "end": 29.141644,
+      "label": "verse"
+    },
+    {
+      "start": 29.141644,
+      "end": 34.32,
+      "label": "outro"
+    }
+  ],
+  "duration": 34.3232
+}

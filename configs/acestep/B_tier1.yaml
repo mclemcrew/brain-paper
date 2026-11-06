@@ -1,0 +1,44 @@
+# ACE-Step 1.5 tier-1 LoRA, arm B (trigger + human caption + genre tag; no lyrics file, so ACE-Step uses [Instrumental]).
+# Same budget as configs/sa3/B_tier1.yaml: 6000 optimizer steps, lr 1e-4, seed 42.
+# Run with ravi-acestep-train:dev (ravi.train.acestep_lora); paths are container paths, the queue
+# script (~/ravi/runs/acestep_tier1_queue.sh) bind-mounts ~/ravi/acestep/data/B/train on /data/train.
+#
+# Data: ravi.captions.make_acestep_dataset --arm-dir /data/ravi-corpus/arms/B --split train
+#   (580 clips, 48 kHz, the make_arms windows of at most 47 s).
+# Epoch rounding: training_v2 trains whole epochs (README "Steps, epochs and their rounding"):
+#   580 clips / (batch 1 x accum 4) -> 145 optimizer steps per epoch; ceil(6000 / 145) = 42 epochs
+#   -> 6090 steps (+90, +1.5 %). Cosine schedule and warmup run over the 6090.
+# Checkpoints: save_every_epochs 7 = 1015 steps -> epochs 7/14/21/28/35/42 = steps
+#   1015/2030/3045/4060/5075/6090 (the SA3 runs keep 1000-step checkpoints; these are the nearest).
+# Differences from the SA3 tier-1 run that are inherent to the trainer: no caption augmentation
+#   (ACE-Step reads one fixed caption per clip; SA3 shuffles / drops fields), CFG dropout via
+#   cfg_ratio 0.15 instead of SA3's p=0.1, LoRA r64/a128 on q/k/v/o of self and cross attention
+#   instead of DoRA-rows r16.
+arm: ACE_B
+smoke: false
+data_dir: /data/train
+model_variant: turbo             # the served variant (8 steps, shift 3); README "Model variant"
+rank: 64
+alpha: 128
+dropout: 0.1
+target_modules: [q_proj, k_proj, v_proj, o_proj]
+attention_type: both
+lr: 1.0e-4
+batch_size: 1
+grad_accum: 4
+cfg_ratio: 0.15
+gradient_checkpointing: true
+steps: 6000                      # -> 42 epochs = 6090 steps (above)
+save_every_epochs: 7             # -> every 1015 steps
+warmup_steps: 100
+scheduler: cosine
+optimizer: adamw
+weight_decay: 0.01
+max_grad_norm: 1.0
+log_every: 10
+seed: 42
+num_workers: 4                   # g5.2xlarge: 8 vCPUs; the preprocessed tensors are small
+precision: bf16
+max_duration: 240.0              # no clip is longer than 47 s
+require_flash_attn: true
+resume: none

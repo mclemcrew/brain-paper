@@ -1,0 +1,30 @@
+{
+  "track_id": "0704_copilot",
+  "tool": "human",
+  "bpm": null,
+  "beats": null,
+  "downbeats": null,
+  "segments": [
+    {
+      "start": 0.0,
+      "end": 12.891721,
+      "label": "intro"
+    },
+    {
+      "start": 12.891721,
+      "end": 40.942552,
+      "label": "verse"
+    },
+    {
+      "start": 40.942552,
+      "end": 49.429061,
+      "label": "bridge"
+    },
+    {
+      "start": 49.429061,
+      "end": 62.256,
+      "label": "chorus"
+    }
+  ],
+  "duration": 62.2592
+}

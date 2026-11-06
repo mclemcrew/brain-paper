@@ -1,0 +1,30 @@
+{
+  "track_id": "0078_copilot.mp3 When All of A Sudden NS",
+  "tool": "human",
+  "bpm": null,
+  "beats": null,
+  "downbeats": null,
+  "segments": [
+    {
+      "start": 0.0,
+      "end": 12.160083,
+      "label": "intro"
+    },
+    {
+      "start": 12.160083,
+      "end": 18.656566,
+      "label": "transition"
+    },
+    {
+      "start": 18.656566,
+      "end": 26.98539,
+      "label": "bridge"
+    },
+    {
+      "start": 26.98539,
+      "end": 32.016,
+      "label": "verse"
+    }
+  ],
+  "duration": 32.0192
+}
