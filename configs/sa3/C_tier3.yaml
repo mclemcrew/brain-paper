@@ -1,0 +1,37 @@
+# Tier 3 run: arm C (ID3 genre tokens + BPM, the "industry tags" condition), 6k steps.
+# DoRA-rows r16 on medium-base, 47 s window, duration conditioner excluded.
+# Paths are container paths; SMOKE.md bind-mounts the host dirs onto them.
+arm: C
+smoke: false
+data_dir: /data/train
+model: medium-base
+rank: 16
+adapter_type: dora-rows
+lr: 1.0e-4
+steps: 6000
+checkpoint_every: 500
+demo_every: 500
+log_every: 50
+batch_size: 1
+duration: 47
+seed: 42
+num_workers: 6                   # g5.2xlarge has 8 vCPUs
+base_precision: bf16
+exclude_duration_conditioner: true   # -> train_lora.py --exclude seconds_total
+resume: none                     # SMOKE.md section 7 reruns with --set resume=auto
+long_clip_policy: error          # the smoke clips are cropped to the window; fail if one is not
+caption_aug:
+  enabled: true                  # off by default; every arm opts in explicitly
+  field_sep: "␞"            # "␞" between fields; commas inside a field are never split
+  join_sep: ", "                 # what the model sees between fields
+  trigger: rvkr                  # first field of every caption; checked in preflight
+  keep_first_field: true
+  shuffle: true
+  p_lowercase: 0.5
+  p_drop_field: 0.1
+  p_empty: 0.0                   # upstream already applies CFG dropout p=0.1
+  non_droppable_fields: [1]      # field 1 = the ID3 genre tokens; only the "N bpm" field can drop
+  atomic_tail_prefixes: ["sections:"]
+  seed: 0
+# s3_out: s3://uaudio-ravi-corpus-dev-297416720456/adapters/smoke
+# hf_token_ssm_param: /uaudio/hf_token

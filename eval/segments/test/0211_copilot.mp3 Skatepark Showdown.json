@@ -1,0 +1,25 @@
+{
+  "track_id": "0211_copilot.mp3 Skatepark Showdown",
+  "tool": "human",
+  "bpm": null,
+  "beats": null,
+  "downbeats": null,
+  "segments": [
+    {
+      "start": 0.0,
+      "end": 9.027796,
+      "label": "verse"
+    },
+    {
+      "start": 9.027796,
+      "end": 21.573777,
+      "label": "bridge"
+    },
+    {
+      "start": 21.573777,
+      "end": 31.896,
+      "label": "verse"
+    }
+  ],
+  "duration": 31.8992
+}

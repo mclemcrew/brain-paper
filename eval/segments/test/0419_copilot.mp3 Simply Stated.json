@@ -1,0 +1,30 @@
+{
+  "track_id": "0419_copilot.mp3 Simply Stated",
+  "tool": "human",
+  "bpm": null,
+  "beats": null,
+  "downbeats": null,
+  "segments": [
+    {
+      "start": 0.0,
+      "end": 43.677419,
+      "label": "verse"
+    },
+    {
+      "start": 43.677419,
+      "end": 45.677419,
+      "label": "transition"
+    },
+    {
+      "start": 45.677419,
+      "end": 58.193548,
+      "label": "verse"
+    },
+    {
+      "start": 58.193548,
+      "end": 61.9232,
+      "label": "outro"
+    }
+  ],
+  "duration": 61.9232
+}

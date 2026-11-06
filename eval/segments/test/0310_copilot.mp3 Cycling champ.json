@@ -1,0 +1,25 @@
+{
+  "track_id": "0310_copilot.mp3 Cycling champ",
+  "tool": "human",
+  "bpm": null,
+  "beats": null,
+  "downbeats": null,
+  "segments": [
+    {
+      "start": 0.0,
+      "end": 15.692529,
+      "label": "intro"
+    },
+    {
+      "start": 15.692529,
+      "end": 29.833049,
+      "label": "verse"
+    },
+    {
+      "start": 29.833049,
+      "end": 33.144,
+      "label": "outro"
+    }
+  ],
+  "duration": 33.1472
+}

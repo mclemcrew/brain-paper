@@ -1,0 +1,30 @@
+{
+  "track_id": "0418_copilot.mp3 Flying the nest",
+  "tool": "human",
+  "bpm": null,
+  "beats": null,
+  "downbeats": null,
+  "segments": [
+    {
+      "start": 0.0,
+      "end": 43.806452,
+      "label": "verse"
+    },
+    {
+      "start": 43.806452,
+      "end": 45.741935,
+      "label": "transition"
+    },
+    {
+      "start": 45.741935,
+      "end": 58.258065,
+      "label": "verse"
+    },
+    {
+      "start": 58.258065,
+      "end": 61.824,
+      "label": "outro"
+    }
+  ],
+  "duration": 61.8272
+}

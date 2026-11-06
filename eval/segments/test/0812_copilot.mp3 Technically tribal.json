@@ -1,0 +1,35 @@
+{
+  "track_id": "0812_copilot.mp3 Technically tribal",
+  "tool": "human",
+  "bpm": null,
+  "beats": null,
+  "downbeats": null,
+  "segments": [
+    {
+      "start": 0.0,
+      "end": 9.684312,
+      "label": "intro"
+    },
+    {
+      "start": 9.684312,
+      "end": 24.385798,
+      "label": "verse"
+    },
+    {
+      "start": 24.385798,
+      "end": 39.320641,
+      "label": "bridge"
+    },
+    {
+      "start": 39.320641,
+      "end": 46.729723,
+      "label": "verse"
+    },
+    {
+      "start": 46.729723,
+      "end": 56.064,
+      "label": "outro"
+    }
+  ],
+  "duration": 56.0672
+}

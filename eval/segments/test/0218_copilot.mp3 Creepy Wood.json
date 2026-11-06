@@ -1,0 +1,40 @@
+{
+  "track_id": "0218_copilot.mp3 Creepy Wood",
+  "tool": "human",
+  "bpm": null,
+  "beats": null,
+  "downbeats": null,
+  "segments": [
+    {
+      "start": 0.0,
+      "end": 9.240375,
+      "label": "intro"
+    },
+    {
+      "start": 9.240375,
+      "end": 35.712799,
+      "label": "verse"
+    },
+    {
+      "start": 35.712799,
+      "end": 37.898023,
+      "label": "transition"
+    },
+    {
+      "start": 37.898023,
+      "end": 46.826223,
+      "label": "verse"
+    },
+    {
+      "start": 46.826223,
+      "end": 53.194589,
+      "label": "bridge"
+    },
+    {
+      "start": 53.194589,
+      "end": 59.832,
+      "label": "verse"
+    }
+  ],
+  "duration": 59.8352
+}

@@ -1,0 +1,57 @@
+track_id_a,track_id_b,similarity,family_a,family_b,duration_a,duration_b,link_kept
+0331_copilot,0547_copilot.mp3 They're alive!,0.9328,184,336,25.323,31.875,True
+0405_copilot,0406_copilot,0.9311,236,237,12.699,13.371,True
+0418_copilot.mp3 Flying the nest,0419_copilot.mp3 Simply Stated,0.9243,246,247,61.827,61.923,True
+0335_copilot.mp3 Fiesta fun,0841_copilot,0.9104,188,553,31.443,25.443,True
+0695_copilot,0696_copilot,0.9061,454,455,61.971,62.187,True
+0469_copilot,0840_copilot,0.9027,277,552,31.851,25.275,True
+0330_copilot NXLIC,0547_copilot.mp3 They're alive!,0.8977,184,336,24.195,31.875,True
+0428_copilot.mp3 Happy Nelly,0429_copilot,0.8956,253,254,33.699,33.699,True
+0357_copilot,0360_copilot,0.8843,203,206,33.147,32.523,True
+0426_copilot.mp3 Brazilian Breeze,0492_copilot,0.8783,252,294,33.195,32.499,True
+0357_copilot,0361_copilot.mp3 Festive lullaby,0.8654,203,206,33.147,33.435,True
+0917_copilot.mp3 DELETE,0923_copilot.mp3 Decade Chase 2,0.8494,576,578,62.163,61.875,True
+0711_copilot,0712_copilot,0.8492,468,469,15.387,16.395,True
+0427_copilot,0492_copilot,0.8312,252,294,33.867,32.499,True
+0523_copilot.mp3 Warm Honey,0602_copilot,0.8071,322,381,48.051,31.395,True
+0683_copilot,0766_copilot,0.7986,444,515,7.131,3.819,False
+0297_copilot.mp3 Desert cruiser,0767_copilot,0.7971,162,516,32.355,4.035,False
+0690_copilot,0925_copilot.mp3 Out West,0.7936,451,579,6.075,49.539,False
+0264_copilot.mp3 Happiness arises,0767_copilot,0.7932,137,516,63.363,4.035,False
+0468_copilot.mp3 Long skirts,0840_copilot,0.7892,277,552,31.683,25.275,True
+0491_copilot.mp3 Tentative bunny,0618_copilot,0.7841,293,397,29.091,31.827,True
+0648_copilot,0767_copilot,0.7805,422,516,63.339,4.035,False
+0063_copilot.mp3 Can't Win 'Em All NS,0767_copilot,0.7795,54,516,33.411,4.035,False
+0256_copilot.mp3 Family day out,0349_copilot.mp3 Happy bunny,0.7774,132,198,38.667,32.355,True
+0319_copilot,0548_copilot,0.7763,176,129,17.019,30.243,True
+0578_copilot,0689_copilot,0.7739,360,450,33.627,5.955,False
+0263_copilot,0767_copilot,0.772,137,516,64.011,4.035,False
+0689_copilot,0926_copilot,0.7671,450,579,5.955,47.043,False
+0201_copilot.mp3 Acoustic Tone Poem 3,0740_copilot,0.7655,87,495,40.995,5.115,False
+0412_copilot.mp3 Cockney Latino,0842_copilot,0.7559,241,554,32.139,26.475,True
+0328_copilot,0767_copilot,0.7469,181,516,23.331,4.035,False
+0200_copilot.mp3 Acoustic Tone Poem 2,0508_copilot,0.7467,87,308,38.259,6.411,False
+0329_copilot,0767_copilot,0.7448,181,516,22.419,4.035,False
+0415_copilot.mp3 Hazy harvest,0740_copilot,0.7432,243,495,64.203,5.115,False
+0668_copilot,0689_copilot,0.7405,430,450,33.987,5.955,False
+0439_copilot.mp3 Americana,0766_copilot,0.7371,261,515,31.275,3.819,False
+0716_copilot,0766_copilot,0.7355,473,515,29.331,3.819,False
+0253_copilot.mp3 Travel through the night,0319_copilot,0.735,129,176,61.899,17.019,True
+0740_copilot,0930_copilot.mp3 Morning Dew,0.7343,495,582,5.115,30.675,False
+0690_copilot,0926_copilot,0.7331,451,579,6.075,47.043,False
+0487_copilot NXLIC,0683_copilot,0.7305,290,444,61.995,7.131,False
+0403_copilot,0689_copilot,0.7229,234,450,17.067,5.955,False
+0355_copilot.mp3 Wake up to snow,0690_copilot,0.7183,204,451,32.667,6.075,False
+0689_copilot,0925_copilot.mp3 Out West,0.7163,450,579,5.955,49.539,False
+0517_copilot.mp3 First flight,0690_copilot,0.7111,316,451,48.939,6.075,False
+0523_copilot.mp3 Warm Honey,0689_copilot,0.7107,322,450,48.051,5.955,False
+0740_copilot,0892_copilot,0.7104,495,564,5.115,60.147,False
+0487_copilot NXLIC,0766_copilot,0.7092,290,515,61.995,3.819,False
+0656_copilot,0690_copilot,0.7083,204,451,54.339,6.075,False
+0689_copilot,0831_copilot.mp3 Chilled BG,0.7075,450,550,5.955,32.379,False
+0602_copilot,0689_copilot,0.706,381,450,31.395,5.955,False
+0223_copilot.mp3 By The Ocean (Remix),"0224_copilot.mp3 Sorry, Buddy",0.7055,101,102,35.163,35.427,True
+0065_copilot.mp3 Best Day Ever NS,0690_copilot,0.7052,56,451,63.243,6.075,False
+0546_copilot.mp3 Pizz Accents & 80's,0555_copilot,0.7041,335,341,30.867,18.747,True
+0415_copilot.mp3 Hazy harvest,0507_copilot,0.704,243,307,64.203,6.075,False
+0324_copilot,0767_copilot,0.7024,181,516,25.179,4.035,False

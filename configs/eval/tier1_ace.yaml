@@ -1,0 +1,54 @@
+# Tier 1, ACE-Step 1.5 (turbo): base and the ACE-Step LoRAs B / E @6k (6090 steps,
+# configs/acestep/{B,E}_tier1.yaml), each with and without the structure summary, on the SAME
+# regions, seeds, context windows and generation prompts as configs/eval/tier1.yaml (SA3).
+#
+# Run inside ravi-acestep-train:dev (the grid code is bind-mounted, as for the SA3 grids):
+#   docker run --rm --gpus all -v $HOME/ravi/ravi:/opt/ml/code/ravi:ro -v $HOME/ravi/configs:/configs:ro \
+#     -v $HOME/ravi/eval:/eval -v /data:/data:ro -v $HOME/ravi/runs:/runs:ro \
+#     -v $HOME/ravi/acestep/ckpt:/opt/acestep/checkpoints -v $HOME/ravi/acestep/hf_home:/opt/hf_home \
+#     --entrypoint python ravi-acestep-train:dev -m ravi.eval.grid /configs/eval/tier1_ace.yaml [--dry-run]
+#
+# engine: acestep presents SA3's 44.1 kHz geometry (ravi.eval.acestep_grid), so masks, contexts
+# and stems are sample-identical to /eval/tier1 and run_eval can compare the two roots' conditions.
+# Inpainting = ACE-Step repaint (balanced, 0.5) of the 47 s context; generation = text2music (DiT only).
+# "sections" go into the ACE-Step lyrics (one [label] per line, as arm E was trained), not the caption;
+# without them the lyrics are [Instrumental].
+engine: acestep
+regions: /eval/regions_test.json
+out_root: /eval/tier1_ace
+audio_root: /data/ravi-corpus/prepared/44100
+seeds: [1, 2]
+tasks: [inpaint, generate]
+
+inpaint:
+  context_s: 47
+  min_context_s: 5
+  xfade_ms: 50
+  blank_mask_input: false
+
+generate:
+  duration: 30
+  prompts_from: arm      # each condition's own arm caption, as in tier1.yaml
+  n_prompts: null        # all 109 test tracks
+  seed: 0
+
+anchors:
+  lower: true            # CPU only; identical to /eval/tier1/anchor_lower (same geometry and seed)
+  lower_name: anchor_lower
+  seed: 0
+
+defaults:
+  model: turbo
+  prompt_source: arm_caption
+  caption_root: null
+
+conditions:
+  # base ACE-Step turbo, prompted like arm B (human caption + genre tag)
+  - {name: ACE_base,       arm: B, with_sections: false}
+  - {name: ACE_base_sec,   arm: B, with_sections: true}
+  # arm B LoRA
+  - {name: ACE_B6k,        arm: B, with_sections: false, lora: /runs/acestep_B_tier1/model/adapter, lora_strength: 1.0}
+  - {name: ACE_B6k_sec,    arm: B, with_sections: true,  lora: /runs/acestep_B_tier1/model/adapter, lora_strength: 1.0}
+  # arm E LoRA (trained with the sections as lyrics)
+  - {name: ACE_E6k,        arm: E, with_sections: true,  lora: /runs/acestep_E_tier1/model/adapter, lora_strength: 1.0}
+  - {name: ACE_E6k_nosec,  arm: E, with_sections: false, lora: /runs/acestep_E_tier1/model/adapter, lora_strength: 1.0}

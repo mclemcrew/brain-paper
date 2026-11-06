@@ -1,0 +1,25 @@
+{
+  "track_id": "0798_copilot.mp3 Problem-Solution",
+  "tool": "human",
+  "bpm": null,
+  "beats": null,
+  "downbeats": null,
+  "segments": [
+    {
+      "start": 0.0,
+      "end": 9.794797,
+      "label": "intro"
+    },
+    {
+      "start": 9.794797,
+      "end": 21.80666,
+      "label": "verse"
+    },
+    {
+      "start": 21.80666,
+      "end": 31.8,
+      "label": "outro"
+    }
+  ],
+  "duration": 31.8032
+}

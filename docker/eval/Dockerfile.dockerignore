@@ -1,0 +1,9 @@
+# BuildKit uses this file (next to the Dockerfile) instead of a root .dockerignore.
+# The build context is the repo root (prepared/ alone is gigabytes); the image only needs
+# the ravi package and the pinned requirements.
+*
+!ravi/
+!docker/eval/requirements.txt
+ravi/**/__pycache__
+ravi/**/*.pyc
+ravi/tests/

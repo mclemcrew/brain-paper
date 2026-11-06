@@ -1,0 +1,56 @@
+# Tier 1 (plan Phase 3): base and LoRAs A / B / E @6k, each with and without the structure
+# summary in the prompt (the 2x2 that separates the training-time from the prompt-time
+# structure effect), all test regions, seeds 1 and 2, plus the lower anchor.
+# Run with `python -m ravi.eval.grid /configs/eval/tier1.yaml` inside ravi-sa3-train:dev
+# (same mounts as tier0.yaml).
+#
+# Regions: every interior verse/bridge/chorus section of the test split (157 regions on 103
+# tracks with pad 1 s / min 4 s), from
+#   .venv/bin/python -m ravi.eval.select_regions --split test --labels-dir ~/Downloads/labels \
+#       --autocaptions captions/midasheng_test.jsonl --out eval/regions_test.json
+#
+# "sections" = `sections: a, b, c` from the human labels inside the window the model sees
+# (inpainting: the 47 s context; generation: the first 47 s of the prompt's track), so the
+# summary always describes the audio. Arm E's caption carries it by default (with_sections
+# defaults to true for arm E); E6k_nosec strips it.
+regions: /eval/regions_test.json
+out_root: /eval/tier1
+audio_root: /data/ravi-corpus/prepared/44100
+seeds: [1, 2]
+tasks: [inpaint, generate]
+
+inpaint:
+  context_s: 47
+  min_context_s: 5
+  xfade_ms: 50
+  blank_mask_input: false
+
+generate:
+  duration: 30
+  prompts_from: arm      # each condition's own arm caption (Phase 4.1: ~100 test captions per arm)
+  n_prompts: null        # all 109 test tracks
+  seed: 0
+
+anchors:
+  lower: true
+  lower_name: anchor_lower
+  seed: 0
+
+defaults:
+  model: medium
+  prompt_source: arm_caption
+  caption_root: null
+
+conditions:
+  # base model, prompted like arm B (the human caption + genre tag)
+  - {name: base,       arm: B, with_sections: false}
+  - {name: base_sec,   arm: B, with_sections: true}
+  # arm A: trigger only
+  - {name: A6k,        arm: A, with_sections: false, lora: /runs/A_tier1/model/adapter.safetensors, lora_strength: 1.0}
+  - {name: A6k_sec,    arm: A, with_sections: true,  lora: /runs/A_tier1/model/adapter.safetensors, lora_strength: 1.0}
+  # arm B: human caption + genre tag
+  - {name: B6k,        arm: B, with_sections: false, lora: /runs/B_tier1/model/adapter.safetensors, lora_strength: 1.0}
+  - {name: B6k_sec,    arm: B, with_sections: true,  lora: /runs/B_tier1/model/adapter.safetensors, lora_strength: 1.0}
+  # arm E: B + sections (trained with the summary)
+  - {name: E6k,        arm: E, with_sections: true,  lora: /runs/E_tier1/model/adapter.safetensors, lora_strength: 1.0}
+  - {name: E6k_nosec,  arm: E, with_sections: false, lora: /runs/E_tier1/model/adapter.safetensors, lora_strength: 1.0}

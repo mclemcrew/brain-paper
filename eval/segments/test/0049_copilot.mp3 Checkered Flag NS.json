@@ -1,0 +1,25 @@
+{
+  "track_id": "0049_copilot.mp3 Checkered Flag NS",
+  "tool": "human",
+  "bpm": null,
+  "beats": null,
+  "downbeats": null,
+  "segments": [
+    {
+      "start": 0.0,
+      "end": 19.364229,
+      "label": "intro"
+    },
+    {
+      "start": 19.364229,
+      "end": 27.14852,
+      "label": "verse"
+    },
+    {
+      "start": 27.14852,
+      "end": 30.912,
+      "label": "outro"
+    }
+  ],
+  "duration": 30.9152
+}

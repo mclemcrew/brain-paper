@@ -1,0 +1,30 @@
+{
+  "track_id": "0368_copilot.mp3 Infomercial",
+  "tool": "human",
+  "bpm": null,
+  "beats": null,
+  "downbeats": null,
+  "segments": [
+    {
+      "start": 0.0,
+      "end": 17.821436,
+      "label": "intro"
+    },
+    {
+      "start": 17.821436,
+      "end": 27.266797,
+      "label": "verse"
+    },
+    {
+      "start": 27.266797,
+      "end": 30.65287,
+      "label": "transition"
+    },
+    {
+      "start": 30.65287,
+      "end": 42.816,
+      "label": "verse"
+    }
+  ],
+  "duration": 42.8192
+}

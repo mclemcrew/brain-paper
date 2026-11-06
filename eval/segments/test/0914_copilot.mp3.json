@@ -1,0 +1,50 @@
+{
+  "track_id": "0914_copilot.mp3",
+  "tool": "human",
+  "bpm": null,
+  "beats": null,
+  "downbeats": null,
+  "segments": [
+    {
+      "start": 0.0,
+      "end": 4.36795,
+      "label": "intro"
+    },
+    {
+      "start": 4.36795,
+      "end": 6.551925,
+      "label": "transition"
+    },
+    {
+      "start": 6.551925,
+      "end": 9.629344,
+      "label": "intro"
+    },
+    {
+      "start": 9.629344,
+      "end": 11.714048,
+      "label": "transition"
+    },
+    {
+      "start": 11.714048,
+      "end": 14.030385,
+      "label": "intro"
+    },
+    {
+      "start": 14.030385,
+      "end": 16.479084,
+      "label": "transition"
+    },
+    {
+      "start": 16.479084,
+      "end": 25.976067,
+      "label": "verse"
+    },
+    {
+      "start": 25.976067,
+      "end": 31.8,
+      "label": "outro"
+    }
+  ],
+  "duration": 31.8032
+}

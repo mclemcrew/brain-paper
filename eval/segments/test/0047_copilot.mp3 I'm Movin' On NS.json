@@ -1,0 +1,25 @@
+{
+  "track_id": "0047_copilot.mp3 I'm Movin' On NS",
+  "tool": "human",
+  "bpm": null,
+  "beats": null,
+  "downbeats": null,
+  "segments": [
+    {
+      "start": 0.0,
+      "end": 17.71155,
+      "label": "verse"
+    },
+    {
+      "start": 17.71155,
+      "end": 34.891754,
+      "label": "bridge"
+    },
+    {
+      "start": 34.891754,
+      "end": 42.552,
+      "label": "verse"
+    }
+  ],
+  "duration": 42.5552
+}

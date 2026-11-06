@@ -1,0 +1,32 @@
+{
+  "$schema": "https://schema.tauri.app/config/2",
+  "productName": "rAvI Studio",
+  "version": "0.1.0",
+  "identifier": "org.ravi.composer-studio",
+  "build": {
+    "frontendDist": "../dist",
+    "beforeBuildCommand": "npm run build"
+  },
+  "app": {
+    "windows": [],
+    "security": {
+      "csp": null
+    }
+  },
+  "bundle": {
+    "active": true,
+    "targets": [
+      "app"
+    ],
+    "resources": [
+      "resources/ravi-local/**/*"
+    ],
+    "macOS": {
+      "minimumSystemVersion": "13.3"
+    },
+    "icon": [
+      "icons/icon.icns",
+      "icons/icon.png"
+    ]
+  }
+}

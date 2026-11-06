@@ -1,0 +1,40 @@
+{
+  "track_id": "0514_copilot.mp3 Yuppy party",
+  "tool": "human",
+  "bpm": null,
+  "beats": null,
+  "downbeats": null,
+  "segments": [
+    {
+      "start": 0.0,
+      "end": 1.0,
+      "label": "unlabeled"
+    },
+    {
+      "start": 1.0,
+      "end": 7.617066,
+      "label": "intro"
+    },
+    {
+      "start": 7.617066,
+      "end": 25.51717,
+      "label": "verse"
+    },
+    {
+      "start": 25.51717,
+      "end": 48.17794,
+      "label": "bridge"
+    },
+    {
+      "start": 48.17794,
+      "end": 57.318418,
+      "label": "transition"
+    },
+    {
+      "start": 57.318418,
+      "end": 60.648,
+      "label": "outro"
+    }
+  ],
+  "duration": 60.6512
+}

@@ -1,0 +1,164 @@
+{
+  "source": "/configs/eval/tier1_ace.yaml",
+  "argv": [
+    "/configs/eval/tier1_ace.yaml"
+  ],
+  "created": "2026-10-16T02:15:48+00:00",
+  "config": {
+    "regions": "/eval/regions_test.json",
+    "out_root": "/eval/tier1_ace",
+    "conditions": [
+      {
+        "name": "ACE_base",
+        "model": "turbo",
+        "lora": null,
+        "lora_strength": null,
+        "steps": 8,
+        "cfg": 1.0,
+        "prompt_source": "arm_caption",
+        "arm": "B",
+        "caption_root": null,
+        "with_sections": false,
+        "sections_from": "context",
+        "autocaptions": null,
+        "tasks": [
+          "inpaint",
+          "generate"
+        ]
+      },
+      {
+        "name": "ACE_base_sec",
+        "model": "turbo",
+        "lora": null,
+        "lora_strength": null,
+        "steps": 8,
+        "cfg": 1.0,
+        "prompt_source": "arm_caption",
+        "arm": "B",
+        "caption_root": null,
+        "with_sections": true,
+        "sections_from": "context",
+        "autocaptions": null,
+        "tasks": [
+          "inpaint",
+          "generate"
+        ]
+      },
+      {
+        "name": "ACE_B6k",
+        "model": "turbo",
+        "lora": "/runs/acestep_B_tier1/model/adapter",
+        "lora_strength": 1.0,
+        "steps": 8,
+        "cfg": 1.0,
+        "prompt_source": "arm_caption",
+        "arm": "B",
+        "caption_root": null,
+        "with_sections": false,
+        "sections_from": "context",
+        "autocaptions": null,
+        "tasks": [
+          "inpaint",
+          "generate"
+        ]
+      },
+      {
+        "name": "ACE_B6k_sec",
+        "model": "turbo",
+        "lora": "/runs/acestep_B_tier1/model/adapter",
+        "lora_strength": 1.0,
+        "steps": 8,
+        "cfg": 1.0,
+        "prompt_source": "arm_caption",
+        "arm": "B",
+        "caption_root": null,
+        "with_sections": true,
+        "sections_from": "context",
+        "autocaptions": null,
+        "tasks": [
+          "inpaint",
+          "generate"
+        ]
+      },
+      {
+        "name": "ACE_E6k",
+        "model": "turbo",
+        "lora": "/runs/acestep_E_tier1/model/adapter",
+        "lora_strength": 1.0,
+        "steps": 8,
+        "cfg": 1.0,
+        "prompt_source": "arm_caption",
+        "arm": "E",
+        "caption_root": null,
+        "with_sections": true,
+        "sections_from": "context",
+        "autocaptions": null,
+        "tasks": [
+          "inpaint",
+          "generate"
+        ]
+      },
+      {
+        "name": "ACE_E6k_nosec",
+        "model": "turbo",
+        "lora": "/runs/acestep_E_tier1/model/adapter",
+        "lora_strength": 1.0,
+        "steps": 8,
+        "cfg": 1.0,
+        "prompt_source": "arm_caption",
+        "arm": "E",
+        "caption_root": null,
+        "with_sections": false,
+        "sections_from": "context",
+        "autocaptions": null,
+        "tasks": [
+          "inpaint",
+          "generate"
+        ]
+      }
+    ],
+    "seeds": [
+      1,
+      2
+    ],
+    "tasks": [
+      "inpaint",
+      "generate"
+    ],
+    "audio_root": "/data/ravi-corpus/prepared/44100",
+    "inpaint": {
+      "context_s": 47,
+      "min_context_s": 5,
+      "xfade_ms": 50,
+      "blank_mask_input": false
+    },
+    "generate": {
+      "duration": 30,
+      "prompts_from": "arm",
+      "n_prompts": null,
+      "seed": 0,
+      "trigger": "rvkr",
+      "sections_window_s": 47.0
+    },
+    "anchors": {
+      "lower": true,
+      "lower_name": "anchor_lower",
+      "seed": 0
+    },
+    "geometry": {
+      "sample_rate": 44100,
+      "downsampling_ratio": 4096,
+      "sample_size": 5292032,
+      "channels": 2
+    },
+    "sections": {
+      "min_overlap_s": 1.0
+    },
+    "device": null,
+    "half": true,
+    "allow_cpu": false,
+    "source": "/configs/eval/tier1_ace.yaml",
+    "engine": "acestep"
+  },
+  "regions_sha256": "471c647d78f69eda9c7955b8b3c4ae8bbb6dfebf1f24a914f611b2d1fa795fdc"
+}

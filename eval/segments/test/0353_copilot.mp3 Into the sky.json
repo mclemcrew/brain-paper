@@ -1,0 +1,30 @@
+{
+  "track_id": "0353_copilot.mp3 Into the sky",
+  "tool": "human",
+  "bpm": null,
+  "beats": null,
+  "downbeats": null,
+  "segments": [
+    {
+      "start": 0.0,
+      "end": 6.880333,
+      "label": "intro"
+    },
+    {
+      "start": 6.880333,
+      "end": 34.462019,
+      "label": "verse"
+    },
+    {
+      "start": 34.462019,
+      "end": 37.781478,
+      "label": "transition"
+    },
+    {
+      "start": 37.781478,
+      "end": 57.9632,
+      "label": "outro"
+    }
+  ],
+  "duration": 57.9632
+}

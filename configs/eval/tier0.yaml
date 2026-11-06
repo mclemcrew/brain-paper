@@ -1,0 +1,52 @@
+# Tier 0 go/no-go on section inpainting (plan Phase 2 step 3): base `medium` vs LoRA-B @3k at
+# strength 0 / 0.5 / 1.0, plus the lower anchor; the upper anchor is every region's _orig.wav.
+# Run with `python -m ravi.eval.grid /configs/eval/tier0.yaml` inside ravi-sa3-train:dev.
+# Paths are container paths (see the docker run in the grid's report / docs):
+#   ~/brain-paper/eval -> /eval, /data -> /data, adapters -> /runs, HF cache -> /opt/hf_home.
+#
+# Regions: 20 test tracks, one interior verse/bridge/chorus each, from
+#   .venv/bin/python -m ravi.eval.select_regions --split test --labels-dir ~/Downloads/labels \
+#       --autocaptions captions/midasheng_test.jsonl --max-tracks 20 --max-regions-per-track 1 \
+#       --seed 0 --out eval/regions_test_tier0.json
+regions: /eval/regions_test_tier0.json
+out_root: /eval/tier0
+audio_root: /data/ravi-corpus/prepared/44100   # {track_id}.wav, the -16 LUFS 44.1 kHz full tracks
+seeds: [1]
+tasks: [inpaint, generate]
+
+inpaint:
+  context_s: 47          # the LoRA's training window (sa3_infer default)
+  min_context_s: 5
+  xfade_ms: 50
+  blank_mask_input: false
+
+generate:
+  duration: 30
+  prompts_from: arm      # each condition's own prompt (arm B caption = the human caption + genre)
+  n_prompts: 20          # seeded subset of the 109 test tracks
+  seed: 0
+
+anchors:
+  lower: true            # written as condition `anchor_lower` (run_eval reserves `lower`)
+  lower_name: anchor_lower
+  seed: 0
+
+# Every condition gets the identical prompt (arm B caption) so the comparison is paired.
+defaults:
+  model: medium          # post-trained, 8 steps, cfg 1 (sa3_infer.MODEL_DEFAULTS)
+  prompt_source: arm_caption
+  arm: B
+  caption_root: null     # null: the captions stored in the regions file (make_arms text)
+  with_sections: false
+
+conditions:
+  - name: base
+  - name: B3k_s0
+    lora: /runs/B_tier0/model/adapter.safetensors
+    lora_strength: 0.0
+  - name: B3k_s0.5
+    lora: /runs/B_tier0/model/adapter.safetensors
+    lora_strength: 0.5
+  - name: B3k_s1
+    lora: /runs/B_tier0/model/adapter.safetensors
+    lora_strength: 1.0

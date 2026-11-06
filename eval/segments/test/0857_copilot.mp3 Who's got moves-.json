@@ -1,0 +1,45 @@
+{
+  "track_id": "0857_copilot.mp3 Who's got moves-",
+  "tool": "human",
+  "bpm": null,
+  "beats": null,
+  "downbeats": null,
+  "segments": [
+    {
+      "start": 0.0,
+      "end": 7.341403,
+      "label": "intro"
+    },
+    {
+      "start": 7.341403,
+      "end": 41.411213,
+      "label": "verse"
+    },
+    {
+      "start": 41.411213,
+      "end": 48.039858,
+      "label": "bridge"
+    },
+    {
+      "start": 48.039858,
+      "end": 54.811055,
+      "label": "verse"
+    },
+    {
+      "start": 54.811055,
+      "end": 61.724803,
+      "label": "bridge"
+    },
+    {
+      "start": 61.724803,
+      "end": 65.502418,
+      "label": "verse"
+    },
+    {
+      "start": 65.502418,
+      "end": 68.496,
+      "label": "outro"
+    }
+  ],
+  "duration": 68.4992
+}

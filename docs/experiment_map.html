@@ -1,0 +1,293 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>rAvI v2 — caption arms × tasks: the grid we need</title>
+<style>
+:root{--bg:#fff;--fg:#1a1a1a;--muted:#5f5f5f;--panel:#f4f4f3;--rule:#cfcfcf;
+      --done:#2f7d4f;--run:#b8761a;--notrun:#b5261e;--queued:#4a5e9a;
+      --dit:#d9c6ec;--dit-stroke:#8e6bb5;--enc:#cfd9e8;--enc-stroke:#5f7aa6;--vae:#d6e4d9;--vae-stroke:#5f8f6e;--keep:#bfc3c8;--regen:#f0a65a;--lora:#b3261e}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--fg);font:15px/1.45 -apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif;padding:28px 36px 48px}
+h1{font-size:22px;font-weight:500;margin:0 0 22px}
+h2{font-size:17px;font-weight:500;margin:40px 0 14px}
+.colhead{display:grid;grid-template-columns:150px 1fr 1fr;gap:28px;margin-bottom:10px}
+.colhead div{text-align:center;font-size:17px}
+.row{display:grid;grid-template-columns:150px 1fr 1fr;gap:28px;align-items:stretch;margin-bottom:28px}
+.rowlabel{display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;font-size:17px;line-height:1.3}
+.rowlabel small{display:block;font-size:12.5px;color:var(--muted);margin-top:4px;font-family:ui-monospace,Menlo,monospace}
+.cell{position:relative;border:3px solid var(--rule);border-radius:12px;background:var(--panel);padding:18px 18px 16px;min-height:330px;display:grid;grid-template-rows:auto 1fr auto;gap:10px}
+.cell.done{border-color:var(--done)} .cell.run{border-color:var(--run)} .cell.notrun{border-color:var(--notrun)} .cell.queued{border-color:var(--queued)}
+.badge{justify-self:end;color:#fff;font-size:13px;letter-spacing:.04em;padding:7px 22px;border-radius:5px;background:var(--rule)}
+.done .badge{background:var(--done)} .run .badge{background:var(--run)} .notrun .badge{background:var(--notrun)} .queued .badge{background:var(--queued)}
+.diagram{width:100%;height:auto;display:block}
+.facts{font-size:14.5px;line-height:1.55}
+.facts b{font-weight:600}
+.facts .k{color:var(--muted)}
+.small .cell{min-height:250px;padding:14px 14px 12px}
+.small .colhead,.small .row{grid-template-columns:150px repeat(3,1fr)}
+.foot{color:var(--muted);font-size:13.5px;margin-top:26px;max-width:120ch}
+.legend{display:flex;gap:18px;flex-wrap:wrap;font-size:13px;color:var(--muted);margin:6px 0 18px}
+.legend i{display:inline-block;width:12px;height:12px;border-radius:2px;vertical-align:-1px;margin-right:6px}
+@media (max-width:900px){.colhead,.row,.small .colhead,.small .row{grid-template-columns:1fr}.colhead div:first-child{display:none}.rowlabel{justify-content:flex-start;text-align:left}}
+</style>
+</head>
+<body>
+
+<h1>Caption arm vs task: the 2 × 2 we need (section regeneration and text-to-music on Ravi's corpus)</h1>
+<div class="legend"><span><i style="background:var(--enc)"></i>text encoder (T5Gemma, frozen)</span><span><i style="background:var(--dit)"></i>diffusion transformer (DiT) + LoRA</span><span><i style="background:var(--vae)"></i>audio autoencoder (VAE)</span><span><i style="background:var(--keep)"></i>kept audio</span><span><i style="background:var(--regen)"></i>regenerated section</span></div>
+
+<!-- SVG symbol library: one definition each, reused in every cell -->
+<svg width="0" height="0" style="position:absolute">
+  <defs>
+    <marker id="arr" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="#333"/></marker>
+    <marker id="arrR" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="#b5261e"/></marker>
+    <!-- a stylised spectrogram tile -->
+    <g id="spec">
+      <rect width="86" height="64" fill="#1d1033"/>
+      <g fill="#f29b2e">
+        <rect x="4" y="50" width="78" height="4"/><rect x="4" y="43" width="78" height="2.5" opacity=".9"/><rect x="4" y="37" width="78" height="2" opacity=".75"/>
+        <rect x="4" y="31" width="78" height="1.6" opacity=".6"/><rect x="4" y="26" width="78" height="1.3" opacity=".5"/>
+      </g>
+      <g fill="#ffd27a" opacity=".85"><rect x="10" y="8" width="3" height="46"/><rect x="24" y="12" width="3" height="42"/><rect x="38" y="6" width="3" height="48"/><rect x="52" y="14" width="3" height="40"/><rect x="66" y="9" width="3" height="45"/></g>
+      <g fill="#c8405f" opacity=".7"><rect x="4" y="18" width="20" height="3"/><rect x="30" y="20" width="24" height="3"/><rect x="58" y="16" width="24" height="3"/></g>
+    </g>
+    <!-- DiT trapezoid -->
+    <g id="dit"><path d="M0 0 L96 18 L96 78 L0 96 Z" fill="var(--dit)" stroke="var(--dit-stroke)" stroke-width="1.5"/></g>
+    <!-- latent grid -->
+    <g id="latent" stroke="#9a9a9a" stroke-width="1" fill="#e6e6e6">
+      <rect x="0" y="0" width="72" height="56"/>
+      <path d="M18 0V56M36 0V56M54 0V56M0 14H72M0 28H72M0 42H72" fill="none"/>
+    </g>
+    <!-- output waveform tile -->
+    <g id="wave">
+      <rect width="86" height="64" fill="#f8f8f6" stroke="#bbb"/>
+      <path d="M4 32 Q9 10 14 32 T24 32 T34 32 T44 32 T54 32 T64 32 T74 32 T82 32" fill="none" stroke="#333" stroke-width="1.4"/>
+      <path d="M4 32 Q9 46 14 32 T24 32 T34 32 T44 32 T54 32 T64 32 T74 32 T82 32" fill="none" stroke="#333" stroke-width="1.4"/>
+    </g>
+  </defs>
+</svg>
+
+<!-- ===================== MAIN 2x2 ===================== -->
+<div class="colhead"><div></div><div>task: text-to-music (30 s from the caption)</div><div>task: regenerate one section (keep intro, re-do verse 2)</div></div>
+
+<!-- Row B -->
+<div class="row">
+  <div class="rowlabel">B · human caption<small>rvkr ␞ Jessica's sentence ␞ genre</small></div>
+
+  <div class="cell done">
+    <span class="badge">DONE</span>
+    <svg class="diagram" viewBox="0 0 560 170" role="img" aria-label="text to music pipeline, caption arm B">
+      <!-- caption -->
+      <rect x="6" y="18" width="150" height="56" rx="6" fill="#fff" stroke="#999"/>
+      <text x="81" y="40" text-anchor="middle" font-size="10.5" font-family="ui-monospace,Menlo,monospace">rvkr, fast-paced electro</text>
+      <text x="81" y="55" text-anchor="middle" font-size="10.5" font-family="ui-monospace,Menlo,monospace">track, driving synths…</text>
+      <text x="81" y="88" text-anchor="middle" font-size="11" fill="#5f5f5f">caption (one .txt per clip)</text>
+      <!-- encoder -->
+      <rect x="186" y="26" width="70" height="40" rx="5" fill="var(--enc)" stroke="var(--enc-stroke)"/>
+      <text x="221" y="50" text-anchor="middle" font-size="12">T5Gemma</text>
+      <line x1="158" y1="46" x2="184" y2="46" stroke="#333" stroke-width="1.5" marker-end="url(#arr)"/>
+      <!-- noise -->
+      <rect x="186" y="104" width="70" height="40" rx="5" fill="#fff" stroke="#999" stroke-dasharray="3 3"/>
+      <text x="221" y="128" text-anchor="middle" font-size="12">noise, 47 s</text>
+      <!-- DiT -->
+      <use href="#dit" x="290" y="38"/>
+      <text x="338" y="92" text-anchor="middle" font-size="13">DiT</text>
+      <rect x="318" y="100" width="40" height="16" rx="3" fill="#fff" stroke="var(--lora)" stroke-width="1.5"/>
+      <text x="338" y="112" text-anchor="middle" font-size="10" fill="var(--lora)">LoRA B</text>
+      <line x1="258" y1="46" x2="288" y2="54" stroke="#333" stroke-width="1.5" marker-end="url(#arr)"/>
+      <line x1="258" y1="124" x2="288" y2="110" stroke="#333" stroke-width="1.5" marker-end="url(#arr)"/>
+      <!-- latent -> VAE -> wave -->
+      <use href="#latent" x="410" y="56"/>
+      <line x1="388" y1="84" x2="408" y2="84" stroke="#333" stroke-width="1.5" marker-end="url(#arr)"/>
+      <rect x="494" y="22" width="60" height="30" rx="5" fill="var(--vae)" stroke="var(--vae-stroke)"/>
+      <text x="524" y="41" text-anchor="middle" font-size="11">VAE dec</text>
+      <use href="#wave" x="468" y="100"/>
+      <path d="M482 84 L524 84 L524 54" fill="none" stroke="#333" stroke-width="1.5" marker-end="url(#arr)"/>
+      <line x1="524" y1="52" x2="524" y2="98" stroke="#333" stroke-width="1.5" marker-end="url(#arr)"/>
+    </svg>
+    <div class="facts">
+      <span class="k">adapter:</span> 3k steps (tier 0) and 6k steps (tier 1), 2.7 h each on an L40S<br>
+      <span class="k">tier 0, 20 prompts:</span> CLAP text adherence <b>0.41 → 0.35</b> with the adapter at full strength<br>
+      <span class="k">tier 1 (109 prompts, PCA-64):</span> FAD∞ to corpus <b>0.140</b> vs base 0.165 (floor 0.055); KAD 3.96 vs 4.45; CLAP text 0.31 vs 0.35
+    </div>
+  </div>
+
+  <div class="cell done">
+    <span class="badge">DONE</span>
+    <svg class="diagram" viewBox="0 0 560 170" role="img" aria-label="section regeneration pipeline, caption arm B">
+      <!-- source audio with mask -->
+      <g transform="translate(6,16)">
+        <rect x="0" y="0" width="46" height="26" fill="var(--keep)"/><rect x="46" y="0" width="60" height="26" fill="var(--regen)"/><rect x="106" y="0" width="44" height="26" fill="var(--keep)"/>
+        <text x="23" y="17" text-anchor="middle" font-size="10">intro</text><text x="76" y="17" text-anchor="middle" font-size="10">verse 2</text><text x="128" y="17" text-anchor="middle" font-size="10">chorus</text>
+        <text x="75" y="42" text-anchor="middle" font-size="11" fill="#5f5f5f">kept · masked (±1 s) · kept</text>
+      </g>
+      <!-- caption -->
+      <rect x="6" y="104" width="150" height="40" rx="6" fill="#fff" stroke="#999"/>
+      <text x="81" y="128" text-anchor="middle" font-size="10.5" font-family="ui-monospace,Menlo,monospace">rvkr, hip-hop…, Hip Hop</text>
+      <!-- VAE enc -->
+      <rect x="186" y="18" width="70" height="30" rx="5" fill="var(--vae)" stroke="var(--vae-stroke)"/>
+      <text x="221" y="37" text-anchor="middle" font-size="11">VAE enc</text>
+      <line x1="158" y1="30" x2="184" y2="32" stroke="#333" stroke-width="1.5" marker-end="url(#arr)"/>
+      <!-- masked latent -->
+      <g transform="translate(192,62)" stroke="#9a9a9a" stroke-width="1">
+        <rect x="0" y="0" width="20" height="22" fill="#e6e6e6"/><rect x="20" y="0" width="22" height="22" fill="#fff" stroke-dasharray="2 2"/><rect x="42" y="0" width="16" height="22" fill="#e6e6e6"/>
+      </g>
+      <text x="221" y="98" text-anchor="middle" font-size="10" fill="#5f5f5f">latent + mask</text>
+      <line x1="221" y1="50" x2="221" y2="60" stroke="#333" stroke-width="1.5" marker-end="url(#arr)"/>
+      <!-- encoder -->
+      <rect x="186" y="112" width="70" height="30" rx="5" fill="var(--enc)" stroke="var(--enc-stroke)"/>
+      <text x="221" y="131" text-anchor="middle" font-size="11">T5Gemma</text>
+      <line x1="158" y1="124" x2="184" y2="126" stroke="#333" stroke-width="1.5" marker-end="url(#arr)"/>
+      <!-- DiT -->
+      <use href="#dit" x="290" y="38"/>
+      <text x="338" y="92" text-anchor="middle" font-size="13">DiT</text>
+      <rect x="318" y="100" width="40" height="16" rx="3" fill="#fff" stroke="var(--lora)" stroke-width="1.5"/>
+      <text x="338" y="112" text-anchor="middle" font-size="10" fill="var(--lora)">LoRA B</text>
+      <line x1="252" y1="73" x2="288" y2="73" stroke="#333" stroke-width="1.5" marker-end="url(#arr)"/>
+      <line x1="258" y1="126" x2="288" y2="112" stroke="#333" stroke-width="1.5" marker-end="url(#arr)"/>
+      <text x="221" y="110" text-anchor="middle" font-size="9" fill="#5f5f5f">context on both sides</text>
+      <!-- out -->
+      <use href="#latent" x="410" y="56"/>
+      <line x1="388" y1="84" x2="408" y2="84" stroke="#333" stroke-width="1.5" marker-end="url(#arr)"/>
+      <rect x="494" y="22" width="60" height="30" rx="5" fill="var(--vae)" stroke="var(--vae-stroke)"/>
+      <text x="524" y="41" text-anchor="middle" font-size="11">VAE dec</text>
+      <g transform="translate(468,104)">
+        <rect x="0" y="0" width="28" height="26" fill="var(--keep)"/><rect x="28" y="0" width="34" height="26" fill="var(--regen)"/><rect x="62" y="0" width="24" height="26" fill="var(--keep)"/>
+        <text x="0" y="42" text-anchor="start" font-size="10" fill="#5f5f5f">outside mask = source</text>
+      </g>
+      <path d="M482 84 L524 84 L524 54" fill="none" stroke="#333" stroke-width="1.5" marker-end="url(#arr)"/>
+      <line x1="524" y1="52" x2="524" y2="102" stroke="#333" stroke-width="1.5" marker-end="url(#arr)"/>
+    </svg>
+    <div class="facts">
+      <span class="k">tier 0 go/no-go, 20 regions:</span> adapter at full strength vs base: region similarity <b>−0.0005</b> (p 0.84), seam <b>+0.002</b> (p 0.93), key agreement <b>+3/10</b> (p 0.25) → <b>GO</b><br>
+      <span class="k">anchors:</span> base 0.82 vs lower anchor 0.52 vs upper 1.00 (CLAP region similarity)<br>
+      <span class="k">tier 1 (103 tracks paired):</span> region sim <b>+0.011</b> CLAP / +0.009 MERT vs base (ns), seams −0.003 (p .08). Survives the adapter.
+    </div>
+  </div>
+</div>
+
+<!-- Row E -->
+<div class="row">
+  <div class="rowlabel">E · caption + structure<small>B ␞ sections: intro, verse, transition, verse, outro</small></div>
+
+  <div class="cell done">
+    <span class="badge">DONE</span>
+    <svg class="diagram" viewBox="0 0 560 170" role="img" aria-label="text to music pipeline, caption arm E">
+      <rect x="6" y="12" width="150" height="70" rx="6" fill="#fff" stroke="#999"/>
+      <text x="81" y="32" text-anchor="middle" font-size="10.5" font-family="ui-monospace,Menlo,monospace">rvkr, fast-paced electro</text>
+      <text x="81" y="47" text-anchor="middle" font-size="10.5" font-family="ui-monospace,Menlo,monospace">track…, Electronic,</text>
+      <rect x="14" y="54" width="134" height="18" rx="3" fill="#fde9d2" stroke="#b8761a"/>
+      <text x="81" y="67" text-anchor="middle" font-size="10.5" font-family="ui-monospace,Menlo,monospace" fill="#8a4f00">sections: intro, verse…</text>
+      <text x="81" y="96" text-anchor="middle" font-size="11" fill="#5f5f5f">sections from Jessica's labels in the window</text>
+      <rect x="186" y="26" width="70" height="40" rx="5" fill="var(--enc)" stroke="var(--enc-stroke)"/>
+      <text x="221" y="50" text-anchor="middle" font-size="12">T5Gemma</text>
+      <line x1="158" y1="46" x2="184" y2="46" stroke="#333" stroke-width="1.5" marker-end="url(#arr)"/>
+      <rect x="186" y="104" width="70" height="40" rx="5" fill="#fff" stroke="#999" stroke-dasharray="3 3"/>
+      <text x="221" y="128" text-anchor="middle" font-size="12">noise, 47 s</text>
+      <use href="#dit" x="290" y="38"/>
+      <text x="338" y="92" text-anchor="middle" font-size="13">DiT</text>
+      <rect x="318" y="100" width="40" height="16" rx="3" fill="#fff" stroke="var(--lora)" stroke-width="1.5"/>
+      <text x="338" y="112" text-anchor="middle" font-size="10" fill="var(--lora)">LoRA E</text>
+      <line x1="258" y1="46" x2="288" y2="54" stroke="#333" stroke-width="1.5" marker-end="url(#arr)"/>
+      <line x1="258" y1="124" x2="288" y2="110" stroke="#333" stroke-width="1.5" marker-end="url(#arr)"/>
+      <use href="#latent" x="410" y="56"/>
+      <line x1="388" y1="84" x2="408" y2="84" stroke="#333" stroke-width="1.5" marker-end="url(#arr)"/>
+      <rect x="494" y="22" width="60" height="30" rx="5" fill="var(--vae)" stroke="var(--vae-stroke)"/>
+      <text x="524" y="41" text-anchor="middle" font-size="11">VAE dec</text>
+      <use href="#wave" x="468" y="100"/>
+      <path d="M482 84 L524 84 L524 54" fill="none" stroke="#333" stroke-width="1.5" marker-end="url(#arr)"/>
+      <line x1="524" y1="52" x2="524" y2="98" stroke="#333" stroke-width="1.5" marker-end="url(#arr)"/>
+    </svg>
+    <div class="facts">
+      <span class="k">tier 1:</span> prompted without the list: FAD∞ <b>0.135</b> (best of all arms), KAD 3.88; prompted with it: 0.151 / 4.51<br>
+      <span class="k">reading:</span> training on section lists is neutral; putting the list in the prompt does not help text-to-music either
+    </div>
+  </div>
+
+  <div class="cell done">
+    <span class="badge">DONE</span>
+    <svg class="diagram" viewBox="0 0 560 170" role="img" aria-label="section regeneration pipeline, caption arm E">
+      <g transform="translate(6,16)">
+        <rect x="0" y="0" width="46" height="26" fill="var(--keep)"/><rect x="46" y="0" width="60" height="26" fill="var(--regen)"/><rect x="106" y="0" width="44" height="26" fill="var(--keep)"/>
+        <text x="23" y="17" text-anchor="middle" font-size="10">intro</text><text x="76" y="17" text-anchor="middle" font-size="10">verse 2</text><text x="128" y="17" text-anchor="middle" font-size="10">chorus</text>
+        <text x="75" y="42" text-anchor="middle" font-size="11" fill="#5f5f5f">kept · masked (±1 s) · kept</text>
+      </g>
+      <rect x="6" y="98" width="150" height="50" rx="6" fill="#fff" stroke="#999"/>
+      <text x="81" y="116" text-anchor="middle" font-size="10.5" font-family="ui-monospace,Menlo,monospace">rvkr, hip-hop…, Hip Hop,</text>
+      <rect x="14" y="122" width="134" height="18" rx="3" fill="#fde9d2" stroke="#b8761a"/>
+      <text x="81" y="135" text-anchor="middle" font-size="10.5" font-family="ui-monospace,Menlo,monospace" fill="#8a4f00">sections: intro, verse…</text>
+      <rect x="186" y="18" width="70" height="30" rx="5" fill="var(--vae)" stroke="var(--vae-stroke)"/>
+      <text x="221" y="37" text-anchor="middle" font-size="11">VAE enc</text>
+      <line x1="158" y1="30" x2="184" y2="32" stroke="#333" stroke-width="1.5" marker-end="url(#arr)"/>
+      <g transform="translate(192,62)" stroke="#9a9a9a" stroke-width="1">
+        <rect x="0" y="0" width="20" height="22" fill="#e6e6e6"/><rect x="20" y="0" width="22" height="22" fill="#fff" stroke-dasharray="2 2"/><rect x="42" y="0" width="16" height="22" fill="#e6e6e6"/>
+      </g>
+      <text x="221" y="98" text-anchor="middle" font-size="10" fill="#5f5f5f">latent + mask</text>
+      <line x1="221" y1="50" x2="221" y2="60" stroke="#333" stroke-width="1.5" marker-end="url(#arr)"/>
+      <rect x="186" y="112" width="70" height="30" rx="5" fill="var(--enc)" stroke="var(--enc-stroke)"/>
+      <text x="221" y="131" text-anchor="middle" font-size="11">T5Gemma</text>
+      <line x1="158" y1="124" x2="184" y2="126" stroke="#333" stroke-width="1.5" marker-end="url(#arr)"/>
+      <use href="#dit" x="290" y="38"/>
+      <text x="338" y="92" text-anchor="middle" font-size="13">DiT</text>
+      <rect x="318" y="100" width="40" height="16" rx="3" fill="#fff" stroke="var(--lora)" stroke-width="1.5"/>
+      <text x="338" y="112" text-anchor="middle" font-size="10" fill="var(--lora)">LoRA E</text>
+      <line x1="252" y1="73" x2="288" y2="73" stroke="#333" stroke-width="1.5" marker-end="url(#arr)"/>
+      <line x1="258" y1="126" x2="288" y2="112" stroke="#333" stroke-width="1.5" marker-end="url(#arr)"/>
+      <use href="#latent" x="410" y="56"/>
+      <line x1="388" y1="84" x2="408" y2="84" stroke="#333" stroke-width="1.5" marker-end="url(#arr)"/>
+      <rect x="494" y="22" width="60" height="30" rx="5" fill="var(--vae)" stroke="var(--vae-stroke)"/>
+      <text x="524" y="41" text-anchor="middle" font-size="11">VAE dec</text>
+      <g transform="translate(468,104)">
+        <rect x="0" y="0" width="28" height="26" fill="var(--keep)"/><rect x="28" y="0" width="34" height="26" fill="var(--regen)"/><rect x="62" y="0" width="24" height="26" fill="var(--keep)"/>
+        <text x="0" y="42" text-anchor="start" font-size="10" fill="#5f5f5f">outside mask = source</text>
+      </g>
+      <path d="M482 84 L524 84 L524 54" fill="none" stroke="#333" stroke-width="1.5" marker-end="url(#arr)"/>
+      <line x1="524" y1="52" x2="524" y2="102" stroke="#333" stroke-width="1.5" marker-end="url(#arr)"/>
+    </svg>
+    <div class="facts">
+      <span class="k">answer:</span> <b>no.</b> A section list in the prompt makes the regenerated section slightly <em>less</em> like the original, for base and every adapter (MERT −0.013 to −0.020, p .03 → .002). Training on lists (E) vs plain captions (B), same prompt: no difference (p .16–.23)<br>
+      <span class="k">so:</span> structure earns its place in <em>finding</em> the section (SongFormer), not as text control
+    </div>
+  </div>
+</div>
+
+<!-- ===================== secondary arms ===================== -->
+<h2>The other caption arms (same two tasks, same test set)</h2>
+<div class="small">
+<div class="colhead"><div></div><div>A · trigger only<br><small style="font-family:ui-monospace,Menlo,monospace;color:#5f5f5f">rvkr</small></div><div>D · auto-caption<br><small style="font-family:ui-monospace,Menlo,monospace;color:#5f5f5f">rvkr ␞ MiDashengLM sentence</small></div><div>C · industry tags &nbsp;/&nbsp; F · Stability fields<br><small style="font-family:ui-monospace,Menlo,monospace;color:#5f5f5f">rvkr ␞ Pop, Fun, Light ␞ 120 bpm</small></div></div>
+<div class="row">
+  <div class="rowlabel">adapter</div>
+  <div class="cell done"><span class="badge">DONE</span>
+    <svg class="diagram" viewBox="0 0 300 90"><rect x="4" y="30" width="60" height="30" rx="5" fill="#fff" stroke="#999"/><text x="34" y="49" text-anchor="middle" font-size="10.5" font-family="ui-monospace,Menlo,monospace">rvkr</text><line x1="66" y1="45" x2="96" y2="45" stroke="#333" stroke-width="1.5" marker-end="url(#arr)"/><rect x="98" y="30" width="56" height="30" rx="5" fill="var(--enc)" stroke="var(--enc-stroke)"/><text x="126" y="49" text-anchor="middle" font-size="10">T5Gemma</text><line x1="156" y1="45" x2="186" y2="45" stroke="#333" stroke-width="1.5" marker-end="url(#arr)"/><use href="#dit" x="190" y="0" transform="scale(1,0.9)"/><text x="238" y="48" text-anchor="middle" font-size="12">DiT</text><rect x="218" y="60" width="40" height="14" rx="3" fill="#fff" stroke="var(--lora)" stroke-width="1.5"/><text x="238" y="71" text-anchor="middle" font-size="9" fill="var(--lora)">LoRA A</text></svg>
+    <div class="facts">6k steps done. The style-only control: the model learns "Ravi" with no words to lean on.</div></div>
+  <div class="cell done"><span class="badge">DONE</span>
+    <svg class="diagram" viewBox="0 0 300 90"><rect x="4" y="22" width="90" height="46" rx="5" fill="#fff" stroke="#999"/><text x="49" y="40" text-anchor="middle" font-size="9.5" font-family="ui-monospace,Menlo,monospace">rvkr, upbeat pop rock</text><text x="49" y="53" text-anchor="middle" font-size="9.5" font-family="ui-monospace,Menlo,monospace">instrumental, guitars…</text><line x1="96" y1="45" x2="112" y2="45" stroke="#333" stroke-width="1.5" marker-end="url(#arr)"/><rect x="114" y="30" width="52" height="30" rx="5" fill="var(--enc)" stroke="var(--enc-stroke)"/><text x="140" y="49" text-anchor="middle" font-size="10">T5Gemma</text><line x1="168" y1="45" x2="186" y2="45" stroke="#333" stroke-width="1.5" marker-end="url(#arr)"/><use href="#dit" x="190" y="0" transform="scale(1,0.9)"/><text x="238" y="48" text-anchor="middle" font-size="12">DiT</text><rect x="218" y="60" width="40" height="14" rx="3" fill="#fff" stroke="var(--lora)" stroke-width="1.5"/><text x="238" y="71" text-anchor="middle" font-size="9" fill="var(--lora)">LoRA D</text></svg>
+    <div class="facts">725 captions written by an audio language model (13.5 words avg, matched to B's 14.5). 6k steps done (tier 2).</div></div>
+  <div class="cell done"><span class="badge">C DONE · F DROPPED</span>
+    <svg class="diagram" viewBox="0 0 300 90"><rect x="4" y="22" width="90" height="46" rx="5" fill="#fff" stroke="#999"/><text x="49" y="40" text-anchor="middle" font-size="9.5" font-family="ui-monospace,Menlo,monospace">rvkr, Pop, Fun, Light,</text><text x="49" y="53" text-anchor="middle" font-size="9.5" font-family="ui-monospace,Menlo,monospace">120 bpm</text><line x1="96" y1="45" x2="112" y2="45" stroke="#333" stroke-width="1.5" marker-end="url(#arr)"/><rect x="114" y="30" width="52" height="30" rx="5" fill="var(--enc)" stroke="var(--enc-stroke)"/><text x="140" y="49" text-anchor="middle" font-size="10">T5Gemma</text><line x1="168" y1="45" x2="186" y2="45" stroke="#333" stroke-width="1.5" marker-end="url(#arr)"/><use href="#dit" x="190" y="0" transform="scale(1,0.9)"/><text x="238" y="48" text-anchor="middle" font-size="12">DiT</text><rect x="218" y="60" width="40" height="14" rx="3" fill="#fff" stroke="var(--lora)" stroke-width="1.5"/><text x="238" y="71" text-anchor="middle" font-size="9" fill="var(--lora)">LoRA C</text></svg>
+    <div class="facts">C (6k steps, tier 3) repeats the original paper's "industry tags" condition. F (Stability key:value fields) was dropped: it is answerable as an inference-time prompt rewrite and the time went to the B 2k/4k checkpoints instead.</div></div>
+</div>
+<div class="row">
+  <div class="rowlabel">section regeneration</div>
+  <div class="cell done"><span class="badge">DONE</span><div class="facts">Inpaint: +0.015 CLAP vs base (p .03), fine. Text-to-music: <b>collapses</b> — FAD∞ 0.40 vs base 0.165, CLAP text 0.14: with no words to anchor on, the adapter overfits a narrow style and ignores the prompt.</div></div>
+  <div class="cell done"><span class="badge">DONE</span><div class="facts">Inpaint: +0.013 CLAP vs base (Holm p .03). Text-to-music: the only adapter that keeps prompt adherence (CLAP text 0.376 vs base 0.346) while improving MERT distance to the corpus (1.69 → 1.17); on CLAP distance it equals base. Captions in the same register as the test prompts.</div></div>
+  <div class="cell done"><span class="badge">DONE</span><div class="facts">Inpaint: <b>best adapter</b>, +0.022 CLAP vs base (Holm p .0008), +0.005 MERT. Text-to-music in between B and D (FAD∞ 0.157, CLAP text 0.326). The least descriptive captions preserve section edits best. Also tier 3: B at 2k/4k/6k steps — region fidelity falls monotonically with training (B2k +0.014, Holm .008; B6k +0.002, ns); B2k has the lowest MERT distance of any adapter. 6k steps over-trains on 580 tracks.</div></div>
+</div>
+</div>
+
+<!-- ===================== models ===================== -->
+<h2>Second model: ACE-Step 1.5 (same arms B and E, "repaint" instead of inpainting)</h2>
+<div class="row" style="grid-template-columns:150px 1fr 1fr">
+  <div class="rowlabel">ACE-Step 1.5<small>2B DiT · turbo · MIT</small></div>
+  <div class="cell done"><span class="badge">DONE</span>
+    <svg class="diagram" viewBox="0 0 560 120"><rect x="6" y="40" width="130" height="40" rx="6" fill="#fff" stroke="#999"/><text x="71" y="58" text-anchor="middle" font-size="10.5" font-family="ui-monospace,Menlo,monospace">caption.txt + lyrics</text><text x="71" y="72" text-anchor="middle" font-size="10.5" font-family="ui-monospace,Menlo,monospace">[Instrumental] / [verse]…</text><line x1="138" y1="60" x2="178" y2="60" stroke="#333" stroke-width="1.5" marker-end="url(#arr)"/><rect x="180" y="40" width="80" height="40" rx="5" fill="var(--enc)" stroke="var(--enc-stroke)"/><text x="220" y="64" text-anchor="middle" font-size="11">text + lyric enc</text><line x1="262" y1="60" x2="292" y2="60" stroke="#333" stroke-width="1.5" marker-end="url(#arr)"/><use href="#dit" x="294" y="12"/><text x="342" y="66" text-anchor="middle" font-size="13">DiT 2B</text><rect x="322" y="78" width="40" height="16" rx="3" fill="#fff" stroke="var(--lora)" stroke-width="1.5"/><text x="342" y="90" text-anchor="middle" font-size="10" fill="var(--lora)">LoRA r64</text><line x1="392" y1="60" x2="422" y2="60" stroke="#333" stroke-width="1.5" marker-end="url(#arr)"/><rect x="424" y="40" width="60" height="40" rx="5" fill="var(--vae)" stroke="var(--vae-stroke)"/><text x="454" y="64" text-anchor="middle" font-size="11">VAE 48k</text><line x1="486" y1="60" x2="516" y2="60" stroke="#333" stroke-width="1.5" marker-end="url(#arr)"/><use href="#wave" x="518" y="28" transform="scale(0.5)"/></svg>
+    <div class="facts">B and E trained (6,090 steps each, r64). Repaint keeps audio outside the mask exact. Tier-1 ACE eval: adapters raise MERT region sim (+0.019, p &lt; 1e-8) but lower CLAP region sim (−0.03); text-to-music collapses (FAD∞ 0.37–0.39 vs ACE base 0.21, CLAP text 0.21 vs 0.32); section tags neutral. Its LoRA trainer only teaches full-clip generation, so during repaint the adapter is a style prior, not a repaint skill. Stable Audio 3 is the model served.</div></div>
+  <div class="cell notrun"><span class="badge">NOT RUN</span><div class="facts">YuE (v1 / v2) was dropped: v2 is whole-song with no section edit; v1 needs lyrics and an 80 GB class GPU for full songs.</div></div>
+</div>
+
+<p class="foot">For this to be a clean test, every cell uses the same 580 training files (the earlier run silently dropped caption-less tracks from one arm), the same <code>rvkr</code> trigger, the same 47 s window with the structure text describing only that window, the same field-level caption augmentation, the same seeds, and excludes the duration conditioner from the adapter. Metrics are paired per section and clustered per track; distances are computed at matched clip counts against the real-audio floor; two anchors (original re-inserted, foreign section spliced in) bracket every number. Caption length still differs between arms (A 1 word, C 5, B 14, D 14, E 17) and is reported as a covariate. Structure analyser for the canvas: SongFormer (coarse label accuracy 0.63 vs allin1 0.30 on Jessica's 673 labelled cues).</p>
+
+</body>
+</html>

@@ -1,0 +1,30 @@
+{
+  "track_id": "0829_copilot.mp3 Epic doze",
+  "tool": "human",
+  "bpm": null,
+  "beats": null,
+  "downbeats": null,
+  "segments": [
+    {
+      "start": 0.0,
+      "end": 11.469053,
+      "label": "intro"
+    },
+    {
+      "start": 11.469053,
+      "end": 20.070843,
+      "label": "verse"
+    },
+    {
+      "start": 20.070843,
+      "end": 22.838085,
+      "label": "transition"
+    },
+    {
+      "start": 22.838085,
+      "end": 32.04,
+      "label": "verse"
+    }
+  ],
+  "duration": 32.0432
+}

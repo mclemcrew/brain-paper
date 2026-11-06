@@ -1,0 +1,30 @@
+{
+  "track_id": "0782_copilot.mp3 Best of the boys",
+  "tool": "human",
+  "bpm": null,
+  "beats": null,
+  "downbeats": null,
+  "segments": [
+    {
+      "start": 0.0,
+      "end": 29.612903,
+      "label": "verse"
+    },
+    {
+      "start": 29.612903,
+      "end": 50.322581,
+      "label": "bridge"
+    },
+    {
+      "start": 50.322581,
+      "end": 52.0,
+      "label": "transition"
+    },
+    {
+      "start": 52.0,
+      "end": 61.872,
+      "label": "verse"
+    }
+  ],
+  "duration": 61.8752
+}

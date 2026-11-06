@@ -1,0 +1,30 @@
+{
+  "track_id": "0040_copilot.mp3 Grind It NS",
+  "tool": "human",
+  "bpm": null,
+  "beats": null,
+  "downbeats": null,
+  "segments": [
+    {
+      "start": 0.0,
+      "end": 7.505182,
+      "label": "intro"
+    },
+    {
+      "start": 7.505182,
+      "end": 10.916629,
+      "label": "verse"
+    },
+    {
+      "start": 10.916629,
+      "end": 21.765028,
+      "label": "bridge"
+    },
+    {
+      "start": 21.765028,
+      "end": 32.784,
+      "label": "verse"
+    }
+  ],
+  "duration": 32.7872
+}

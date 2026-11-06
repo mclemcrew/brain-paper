@@ -1,0 +1,29 @@
+diff --git a/optimized/mlx/scripts/lora_train_mlx.py b/optimized/mlx/scripts/lora_train_mlx.py
+index f88ee0b..4a1c2d8 100644
+--- a/optimized/mlx/scripts/lora_train_mlx.py
++++ b/optimized/mlx/scripts/lora_train_mlx.py
+@@ -198,6 +198,12 @@ def parse_args():
+     ap.add_argument("--dist-shift", default="full",
+                     choices=["none", "full", "flux", "logsnr"])
+     ap.add_argument("--cfg-dropout-prob", type=float, default=0.1)
++    ap.add_argument("--gen-mask", choices=["ones", "zeros"], default="ones",
++                    help="Inpaint-mask channel for full-generation training steps. "
++                         "'ones' is the upstream MLX default. 'zeros' matches torch "
++                         "inference (model.py: no mask -> zeros), torch FULL_MASK "
++                         "training (inpainting.py), and this runtime's generation "
++                         "path (local_add_cond=None -> zeros). [rAvI patch]")
+     ap.add_argument("--use-effective-length", action=argparse.BooleanOptionalAction,
+                     default=False,
+                     help="Shift timesteps by the EFFECTIVE latent length "
+@@ -464,8 +470,10 @@ def main():
+     # 80.7 dB forward parity vs the torch loop; the inference path's
+     # local_add_cond=None ≡ zeros is an inference-only convention and trains
+     # against the wrong conditioning regime — 4x loss difference).
++    _mask_fill = np.ones if args.gen_mask == "ones" else np.zeros  # [rAvI patch]
++    print(f"local conditioning: mask channel = {args.gen_mask}")
+     lac_const = mx.array(
+-        np.concatenate([np.ones((1, 1, crop_len), np.float32),
++        np.concatenate([_mask_fill((1, 1, crop_len), np.float32),
+                         np.zeros((1, 256, crop_len), np.float32)],
+                        axis=1).transpose(0, 2, 1)).astype(mx.float16)
+ 

@@ -1,0 +1,30 @@
+{
+  "track_id": "0424_copilot.mp3 Be my baby",
+  "tool": "human",
+  "bpm": null,
+  "beats": null,
+  "downbeats": null,
+  "segments": [
+    {
+      "start": 0.0,
+      "end": 25.771655,
+      "label": "verse"
+    },
+    {
+      "start": 25.771655,
+      "end": 27.373861,
+      "label": "transition"
+    },
+    {
+      "start": 27.373861,
+      "end": 29.964662,
+      "label": "verse"
+    },
+    {
+      "start": 29.964662,
+      "end": 32.76,
+      "label": "outro"
+    }
+  ],
+  "duration": 32.7632
+}

@@ -1,0 +1,66 @@
+# Tier 3 SA3 grid: the adapters tier 1 did not cover, against the tier-1 controls.
+#   D6k   arm D (MiDashengLM auto-captions) @6k        /runs/D_tier2/model/adapter.safetensors
+#   C6k   arm C (ID3 genre tokens + BPM) @6k           /runs/C_tier3/model/adapter.safetensors
+#   B2k   arm B @2k, intermediate checkpoint of the tier-1 B run (the underfit comparison)
+#   B4k   arm B @4k, same run
+# Controls, identical to tier 1: base (no LoRA, arm-B caption), B6k, anchor_lower, plus
+# run_eval's own upper and test_orig. Everything else (regions, seeds, tasks, the inpaint /
+# generate / anchors / defaults blocks) is copied from tier1.yaml so the numbers are comparable.
+#
+# Run on the GPU box with infra/sa3_tier3_eval.sh (inside ravi-sa3-train:dev, same mounts as
+# tier1.yaml: ~/ravi/eval -> /eval, ~/ravi/runs -> /runs:ro, /data -> /data:ro), then
+# `python -m ravi.eval.run_eval --eval-root /app/eval/tier3 ...` (same flags as tier 1).
+#
+# base / B6k / anchor_lower are NOT regenerated: the script links them into /eval/tier3 as
+# relative symlinks to the tier-1 outputs (../tier1/{base,B6k,anchor_lower}). They stay in this
+# config with the tier-1 settings, so the grid finds every output done (sidecar + wav, through
+# the symlink) and only lists them in manifest.csv; without the links it would regenerate them
+# with the same settings (same stems, seeds and lower-anchor donors).
+#
+# B2k / B4k: the trainer's checkpoints/{arm}_s{seed}_h{hash6}_step{N:06d}.safetensors are the
+# same converted fp16 LoRA files as model/adapter.safetensors (which is a copy of the step-6000
+# one, ravi/train/sa3_lora.py:1226), so they load directly. The config hash is not known here:
+# the script resolves the glob on the host and creates the stable relative symlinks
+# ~/ravi/runs/B_tier1/ckpt_step00{2,4}000.safetensors -> checkpoints/<name>.
+#
+# All LoRAs were trained on medium-base and, as in tier 1, are evaluated on `medium`
+# (post-trained, 8 steps, cfg 1).
+regions: /eval/regions_test.json
+out_root: /eval/tier3
+audio_root: /data/ravi-corpus/prepared/44100
+seeds: [1, 2]
+tasks: [inpaint, generate]
+
+inpaint:
+  context_s: 47
+  min_context_s: 5
+  xfade_ms: 50
+  blank_mask_input: false
+
+generate:
+  duration: 30
+  prompts_from: arm      # each condition's own arm caption
+  n_prompts: null        # all 109 test tracks
+  seed: 0
+
+anchors:
+  lower: true
+  lower_name: anchor_lower
+  seed: 0
+
+defaults:
+  model: medium
+  prompt_source: arm_caption
+  caption_root: null
+
+conditions:
+  # controls (tier-1 outputs, symlinked by infra/sa3_tier3_eval.sh)
+  - {name: base,       arm: B, with_sections: false}
+  - {name: B6k,        arm: B, with_sections: false, lora: /runs/B_tier1/model/adapter.safetensors, lora_strength: 1.0}
+  # arm D: auto-captions (tier-2 run)
+  - {name: D6k,        arm: D, with_sections: false, lora: /runs/D_tier2/model/adapter.safetensors, lora_strength: 1.0}
+  # arm C: ID3 genre tokens + BPM (tier-3 run)
+  - {name: C6k,        arm: C, with_sections: false, lora: /runs/C_tier3/model/adapter.safetensors, lora_strength: 1.0}
+  # arm B training length: intermediate checkpoints of the tier-1 B run
+  - {name: B2k,        arm: B, with_sections: false, lora: /runs/B_tier1/ckpt_step002000.safetensors, lora_strength: 1.0}
+  - {name: B4k,        arm: B, with_sections: false, lora: /runs/B_tier1/ckpt_step004000.safetensors, lora_strength: 1.0}

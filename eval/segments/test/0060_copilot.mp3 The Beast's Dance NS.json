@@ -1,0 +1,35 @@
+{
+  "track_id": "0060_copilot.mp3 The Beast's Dance NS",
+  "tool": "human",
+  "bpm": null,
+  "beats": null,
+  "downbeats": null,
+  "segments": [
+    {
+      "start": 0.0,
+      "end": 1.916129,
+      "label": "intro"
+    },
+    {
+      "start": 1.916129,
+      "end": 12.507097,
+      "label": "verse"
+    },
+    {
+      "start": 12.507097,
+      "end": 24.491613,
+      "label": "bridge"
+    },
+    {
+      "start": 24.491613,
+      "end": 27.940645,
+      "label": "verse"
+    },
+    {
+      "start": 27.940645,
+      "end": 33.48,
+      "label": "outro"
+    }
+  ],
+  "duration": 33.4832
+}

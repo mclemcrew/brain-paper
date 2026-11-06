@@ -1,0 +1,40 @@
+{
+  "track_id": "0081_copilot.mp3 Danny Ocean NS",
+  "tool": "human",
+  "bpm": null,
+  "beats": null,
+  "downbeats": null,
+  "segments": [
+    {
+      "start": 0.0,
+      "end": 3.786706,
+      "label": "intro"
+    },
+    {
+      "start": 3.786706,
+      "end": 17.671292,
+      "label": "verse"
+    },
+    {
+      "start": 17.671292,
+      "end": 19.206443,
+      "label": "transition"
+    },
+    {
+      "start": 19.206443,
+      "end": 23.573095,
+      "label": "verse"
+    },
+    {
+      "start": 23.573095,
+      "end": 25.688191,
+      "label": "transition"
+    },
+    {
+      "start": 25.688191,
+      "end": 32.784,
+      "label": "verse"
+    }
+  ],
+  "duration": 32.7872
+}

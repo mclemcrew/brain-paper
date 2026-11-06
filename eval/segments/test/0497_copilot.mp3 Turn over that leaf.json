@@ -1,0 +1,25 @@
+{
+  "track_id": "0497_copilot.mp3 Turn over that leaf",
+  "tool": "human",
+  "bpm": null,
+  "beats": null,
+  "downbeats": null,
+  "segments": [
+    {
+      "start": 0.0,
+      "end": 16.849116,
+      "label": "intro"
+    },
+    {
+      "start": 16.849116,
+      "end": 58.139438,
+      "label": "verse"
+    },
+    {
+      "start": 58.139438,
+      "end": 63.8192,
+      "label": "outro"
+    }
+  ],
+  "duration": 63.8192
+}

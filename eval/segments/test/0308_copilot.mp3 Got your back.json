@@ -1,0 +1,30 @@
+{
+  "track_id": "0308_copilot.mp3 Got your back",
+  "tool": "human",
+  "bpm": null,
+  "beats": null,
+  "downbeats": null,
+  "segments": [
+    {
+      "start": 0.0,
+      "end": 17.848075,
+      "label": "intro"
+    },
+    {
+      "start": 17.848075,
+      "end": 36.162331,
+      "label": "verse"
+    },
+    {
+      "start": 36.162331,
+      "end": 54.543184,
+      "label": "bridge"
+    },
+    {
+      "start": 54.543184,
+      "end": 63.6032,
+      "label": "outro"
+    }
+  ],
+  "duration": 63.6032
+}

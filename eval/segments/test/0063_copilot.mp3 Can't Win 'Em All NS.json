@@ -1,0 +1,25 @@
+{
+  "track_id": "0063_copilot.mp3 Can't Win 'Em All NS",
+  "tool": "human",
+  "bpm": null,
+  "beats": null,
+  "downbeats": null,
+  "segments": [
+    {
+      "start": 0.0,
+      "end": 3.372087,
+      "label": "intro"
+    },
+    {
+      "start": 3.372087,
+      "end": 28.610597,
+      "label": "verse"
+    },
+    {
+      "start": 28.610597,
+      "end": 33.408,
+      "label": "outro"
+    }
+  ],
+  "duration": 33.4112
+}

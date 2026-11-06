@@ -1,0 +1,40 @@
+{
+  "track_id": "0013_copilot.mp3 LA Sunday NS",
+  "tool": "human",
+  "bpm": null,
+  "beats": null,
+  "downbeats": null,
+  "segments": [
+    {
+      "start": 0.0,
+      "end": 1.0,
+      "label": "unlabeled"
+    },
+    {
+      "start": 1.0,
+      "end": 8.299555,
+      "label": "intro"
+    },
+    {
+      "start": 8.299555,
+      "end": 33.334277,
+      "label": "verse"
+    },
+    {
+      "start": 33.334277,
+      "end": 47.824483,
+      "label": "bridge"
+    },
+    {
+      "start": 47.824483,
+      "end": 49.933386,
+      "label": "transition"
+    },
+    {
+      "start": 49.933386,
+      "end": 65.0,
+      "label": "verse"
+    }
+  ],
+  "duration": 65.3792
+}

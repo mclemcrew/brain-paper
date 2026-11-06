@@ -1,0 +1,40 @@
+{
+  "track_id": "0041_copilot.mp3 Spy Game NS",
+  "tool": "human",
+  "bpm": null,
+  "beats": null,
+  "downbeats": null,
+  "segments": [
+    {
+      "start": 0.0,
+      "end": 6.162331,
+      "label": "intro"
+    },
+    {
+      "start": 6.162331,
+      "end": 18.94589,
+      "label": "verse"
+    },
+    {
+      "start": 18.94589,
+      "end": 30.287201,
+      "label": "transition"
+    },
+    {
+      "start": 30.287201,
+      "end": 48.184183,
+      "label": "verse"
+    },
+    {
+      "start": 48.184183,
+      "end": 57.558793,
+      "label": "bridge"
+    },
+    {
+      "start": 57.558793,
+      "end": 62.808,
+      "label": "outro"
+    }
+  ],
+  "duration": 62.8112
+}

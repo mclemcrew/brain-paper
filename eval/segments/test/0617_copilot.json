@@ -1,0 +1,25 @@
+{
+  "track_id": "0617_copilot",
+  "tool": "human",
+  "bpm": null,
+  "beats": null,
+  "downbeats": null,
+  "segments": [
+    {
+      "start": 0.0,
+      "end": 5.830177,
+      "label": "intro"
+    },
+    {
+      "start": 5.830177,
+      "end": 20.355646,
+      "label": "verse"
+    },
+    {
+      "start": 20.355646,
+      "end": 32.016,
+      "label": "bridge"
+    }
+  ],
+  "duration": 32.0192
+}

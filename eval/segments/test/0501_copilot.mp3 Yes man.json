@@ -1,0 +1,25 @@
+{
+  "track_id": "0501_copilot.mp3 Yes man",
+  "tool": "human",
+  "bpm": null,
+  "beats": null,
+  "downbeats": null,
+  "segments": [
+    {
+      "start": 0.0,
+      "end": 7.674356,
+      "label": "intro"
+    },
+    {
+      "start": 7.674356,
+      "end": 27.806635,
+      "label": "verse"
+    },
+    {
+      "start": 27.806635,
+      "end": 33.072,
+      "label": "outro"
+    }
+  ],
+  "duration": 33.0752
+}

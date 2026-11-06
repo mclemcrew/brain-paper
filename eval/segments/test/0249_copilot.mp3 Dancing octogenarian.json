@@ -1,0 +1,35 @@
+{
+  "track_id": "0249_copilot.mp3 Dancing octogenarian",
+  "tool": "human",
+  "bpm": null,
+  "beats": null,
+  "downbeats": null,
+  "segments": [
+    {
+      "start": 0.0,
+      "end": 10.337757,
+      "label": "intro"
+    },
+    {
+      "start": 10.337757,
+      "end": 24.032791,
+      "label": "verse"
+    },
+    {
+      "start": 24.032791,
+      "end": 25.462127,
+      "label": "transition"
+    },
+    {
+      "start": 25.462127,
+      "end": 29.018847,
+      "label": "verse"
+    },
+    {
+      "start": 29.018847,
+      "end": 31.944,
+      "label": "outro"
+    }
+  ],
+  "duration": 31.9472
+}

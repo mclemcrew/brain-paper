@@ -1,0 +1,30 @@
+{
+  "track_id": "0831_copilot.mp3 Chilled BG",
+  "tool": "human",
+  "bpm": null,
+  "beats": null,
+  "downbeats": null,
+  "segments": [
+    {
+      "start": 0.0,
+      "end": 9.062585,
+      "label": "intro"
+    },
+    {
+      "start": 9.062585,
+      "end": 20.011804,
+      "label": "verse"
+    },
+    {
+      "start": 20.011804,
+      "end": 28.63642,
+      "label": "bridge"
+    },
+    {
+      "start": 28.63642,
+      "end": 32.376,
+      "label": "outro"
+    }
+  ],
+  "duration": 32.3792
+}

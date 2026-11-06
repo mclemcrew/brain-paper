@@ -1,0 +1,30 @@
+{
+  "track_id": "0098_copilot.mp3 Mysterious Shade NS XLIC",
+  "tool": "human",
+  "bpm": null,
+  "beats": null,
+  "downbeats": null,
+  "segments": [
+    {
+      "start": 0.0,
+      "end": 12.83488,
+      "label": "intro"
+    },
+    {
+      "start": 12.83488,
+      "end": 15.505923,
+      "label": "verse"
+    },
+    {
+      "start": 15.505923,
+      "end": 19.356387,
+      "label": "transition"
+    },
+    {
+      "start": 19.356387,
+      "end": 33.336,
+      "label": "verse"
+    }
+  ],
+  "duration": 33.3392
+}

@@ -1,0 +1,25 @@
+{
+  "track_id": "0908_copilot.mp3 Big Sky Fanfare",
+  "tool": "human",
+  "bpm": null,
+  "beats": null,
+  "downbeats": null,
+  "segments": [
+    {
+      "start": 0.0,
+      "end": 11.741935,
+      "label": "intro"
+    },
+    {
+      "start": 11.741935,
+      "end": 55.419355,
+      "label": "verse"
+    },
+    {
+      "start": 55.419355,
+      "end": 61.656,
+      "label": "outro"
+    }
+  ],
+  "duration": 61.6592
+}

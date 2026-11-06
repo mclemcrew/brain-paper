@@ -1,0 +1,30 @@
+{
+  "track_id": "0278_copilot.mp3 Er Merica!",
+  "tool": "human",
+  "bpm": null,
+  "beats": null,
+  "downbeats": null,
+  "segments": [
+    {
+      "start": 0.0,
+      "end": 8.116545,
+      "label": "intro"
+    },
+    {
+      "start": 8.116545,
+      "end": 40.258065,
+      "label": "verse"
+    },
+    {
+      "start": 40.258065,
+      "end": 72.074922,
+      "label": "bridge"
+    },
+    {
+      "start": 72.074922,
+      "end": 77.8352,
+      "label": "outro"
+    }
+  ],
+  "duration": 77.8352
+}

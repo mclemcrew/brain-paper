@@ -1,106 +1,44 @@
-# brAIn: Music Generation Pipeline
+# rAvI Studio
 
-Companion repository for *"Messing with Metadata: Finetuning an Open-Source Model on an Advertising Composer's Corpus"*.
+A local Mac workspace for describing recordings, fine-tuning Stable Audio 3, comparing generated passages, and exporting audio to a DAW. The repository also contains the research pipeline for comparing metadata conditions.
 
-## Overview
+This is an experimental research pilot. Medium is the primary model: the composer preferred its listening examples and found Small less useful. This feedback does not establish that every trained adapter improves on the original model.
 
-This repository contains the code and tools used to finetune open-source music generation models (MusicGen, Stable Audio Open) on a personal ~940-track advertising music corpus, comparing how different metadata conditioning approaches affect generation quality:
+## Start here
 
-- **Industry Tags** — standard genre/mood/instrumentation tags from production music metadata
-- **Human Captions** — free-form descriptions written by music professionals
-- **AI Descriptions** — machine-generated captions from audio analysis models
+Use an Apple Silicon Mac running macOS 13.3 or newer, with at least 16 GB RAM. Medium downloads about 9.5 GB of weights; leave additional space for recordings, decoded audio, checkpoints, and exports. The 32 GB workload requires suitable hardware. Small is an optional diagnostic, not the default listening experience.
 
-The node canvas UI provides a visual pipeline interface where audio sources connect to generator and analyzer nodes, enabling interactive exploration of model outputs.
+A native pilot build is being prepared. Until an app is attached to a tagged release, use the source instructions below. Model weights and the private recording corpus are not bundled.
 
-![Node Canvas UI](docs/canvas-screenshot.png)
-*The node canvas showing multiple generation models (Ace Studio, Stable Audio Open) conditioned on CSV metadata, alongside source separation (Demucs) and pitch analysis (Basic Pitch). Nodes connect visually and process audio through the pipeline.*
+1. Follow the [composer quickstart](docs/COMPOSER_QUICKSTART.md).
+2. For source installation or packaging, use the [developer guide](docs/LOCAL_STUDIO.md).
+3. For experimental methods and reproduction, use the [research guide](docs/RESEARCH.md).
 
-## Repository Structure
+## Run from source
 
-```
-web/                        # Node canvas UI
-├── index.html              # Visual pipeline interface
-├── backend.js              # Pluggable inference backend (mock + SageMaker)
-└── config.json             # Backend configuration
+Install Python 3.12, uv, Git, Node.js 22 and npm. Research audio preparation also needs ffmpeg and ffprobe on PATH.
 
-training/                   # Finetuning scripts
-├── stable_audio_ft.py      # Stable Audio Open finetuning
-├── prepare_dataset.py      # Dataset preparation
-├── data_utils.py           # Caption generation utilities
-├── configs/                # Model and dataset configurations
-│   ├── prompt_loading.py           # Active prompt loader
-│   ├── prompt_loading_csv.py       # CSV metadata approach
-│   ├── prompt_loading_desc.py      # Description files approach
-│   ├── prompt_loading_ai.py        # AI captions approach
-│   ├── model_config.json           # Model architecture config
-│   └── dataset_config.json         # Dataset paths config
-├── scripts/
-│   ├── generate_captions.py        # Caption generation script
-│   └── metadata_to_jsonl.py        # Metadata conversion
-├── sample_data/                    # Anonymized sample data
-│   ├── metadata_sample.csv
-│   ├── sample_caption.txt
-│   └── sample_description.txt
-└── requirements.txt
-
-listening-test/             # Listening test for paper evaluation
-├── index.html              # Audio comparison player (GitHub Pages)
-├── stable-audio/           # Stable Audio Open samples (4 tracks)
-└── ace-studio/             # Ace Studio samples (2 tracks)
+```sh
+python3 scripts/bootstrap_studio.py
+.venv/bin/python -m ravi.local.server --root .local-studio
 ```
 
-## Running the UI
+Open the local URL printed in Terminal. Install Medium through Settings after reviewing its model terms. Downloads require internet; processing runs locally afterward. Native packaging additionally requires Rust and Xcode command-line tools.
 
-The node canvas runs as a static web page with a mock backend for demonstration:
+## Repository
 
-```bash
-python -m http.server 8000 -d web/
-# Visit http://localhost:8000
-```
+- `desktop/` and `ravi/local/`: composer interface and local processing.
+- `ravi/data/`, `ravi/captions/`, `ravi/train/`, `ravi/structure/`, `ravi/eval/`: research pipeline.
+- `configs/`, `docker/`, `manifests/`, `captions/`, `eval/`: experiment configuration and retained evidence.
+- `ravi/tests/`: regression tests.
+- `web/`, `training/`, `listening-test/`: legacy v1 work, not the Studio setup path.
 
-### Backend Modes
+## Limits
 
-- **Mock** (default): Simulated inference with placeholder results. No credentials required.
-- **SageMaker**: Real inference via API Gateway + WebSocket. Requires AWS credentials and deployed endpoints.
+A short training test verifies execution, not learned style or musical quality. Compare original and adapted takes using the same prompt, duration and seed. Keep alternate mixes in the same piece family and reserve independent comparison families. MIDI transcription is optional and can produce incorrect notes.
 
-Set the backend mode in `web/config.json`.
-
-## Node Types
-
-- **Source** — Load or record audio input
-- **Generator** — Generate music using finetuned models (MusicGen, Stable Audio Open)
-- **Analyzer** — Analyze audio with captioning models (Audio Flamingo)
-
-Nodes connect visually on a canvas. "Run All" executes the full pipeline from sources through generators and analyzers.
-
-## Training Scripts
-
-| Script | Purpose |
-|--------|---------|
-| `stable_audio_ft.py` | Finetune Stable Audio Open with LoRA on a custom corpus |
-| `prepare_dataset.py` | Prepare and validate training datasets |
-| `data_utils.py` | Utilities for loading audio and generating captions |
-| `generate_captions.py` | Generate AI captions for audio files using LLMs |
-| `metadata_to_jsonl.py` | Convert CSV metadata to JSONL training format |
-
-### Metadata Conditioning Configs
-
-The `configs/prompt_loading_*.py` files implement different metadata conditioning strategies:
-
-- `prompt_loading_csv.py` — Loads structured tags from CSV metadata
-- `prompt_loading_desc.py` — Loads human-written description files
-- `prompt_loading_ai.py` — Loads AI-generated captions
-
-Switch between them by copying to `prompt_loading.py` or modifying the import in the training script.
-
-## Listening Test
-
-Open `listening-test/index.html` in a browser to compare model outputs across metadata conditioning approaches. Each track presents:
-
-- Original reference audio
-- Finetuned model output (per metadata type)
-- Base model output (per metadata type)
+Windows, Linux and DAW plug-ins are not supported by this local pilot. Downloaded-app launch, signing and fresh-install checks must pass before a native build is advertised as ready.
 
 ## License
 
-MIT
+Repository code is MIT; see LICENSE. Models, upstream runtime code and bundled dependencies retain their own terms. The MIT license does not grant rights to model weights or the private corpus.

@@ -1,0 +1,25 @@
+{
+  "track_id": "0881_copilot NXLIC 10-18-11",
+  "tool": "human",
+  "bpm": null,
+  "beats": null,
+  "downbeats": null,
+  "segments": [
+    {
+      "start": 0.0,
+      "end": 28.033299,
+      "label": "intro"
+    },
+    {
+      "start": 28.033299,
+      "end": 46.451613,
+      "label": "verse"
+    },
+    {
+      "start": 46.451613,
+      "end": 59.664,
+      "label": "bridge"
+    }
+  ],
+  "duration": 59.6672
+}

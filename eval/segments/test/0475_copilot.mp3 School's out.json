@@ -1,0 +1,25 @@
+{
+  "track_id": "0475_copilot.mp3 School's out",
+  "tool": "human",
+  "bpm": null,
+  "beats": null,
+  "downbeats": null,
+  "segments": [
+    {
+      "start": 0.0,
+      "end": 5.910743,
+      "label": "intro"
+    },
+    {
+      "start": 5.910743,
+      "end": 24.368216,
+      "label": "verse"
+    },
+    {
+      "start": 24.368216,
+      "end": 34.848,
+      "label": "bridge"
+    }
+  ],
+  "duration": 34.8512
+}

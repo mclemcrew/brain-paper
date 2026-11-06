@@ -1,0 +1,30 @@
+{
+  "track_id": "0417_copilot.mp3 Cake make",
+  "tool": "human",
+  "bpm": null,
+  "beats": null,
+  "downbeats": null,
+  "segments": [
+    {
+      "start": 0.0,
+      "end": 43.290323,
+      "label": "chorus"
+    },
+    {
+      "start": 43.290323,
+      "end": 45.612903,
+      "label": "transition"
+    },
+    {
+      "start": 45.612903,
+      "end": 58.774194,
+      "label": "verse"
+    },
+    {
+      "start": 58.774194,
+      "end": 61.656,
+      "label": "outro"
+    }
+  ],
+  "duration": 61.6592
+}

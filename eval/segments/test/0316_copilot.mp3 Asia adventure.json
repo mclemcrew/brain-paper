@@ -1,0 +1,30 @@
+{
+  "track_id": "0316_copilot.mp3 Asia adventure",
+  "tool": "human",
+  "bpm": null,
+  "beats": null,
+  "downbeats": null,
+  "segments": [
+    {
+      "start": 0.0,
+      "end": 7.221852,
+      "label": "intro"
+    },
+    {
+      "start": 7.221852,
+      "end": 19.784516,
+      "label": "verse"
+    },
+    {
+      "start": 19.784516,
+      "end": 20.657856,
+      "label": "transition"
+    },
+    {
+      "start": 20.657856,
+      "end": 32.28,
+      "label": "chorus"
+    }
+  ],
+  "duration": 32.2832
+}
