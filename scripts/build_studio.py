@@ -21,6 +21,7 @@ run(sys.executable, '-m', 'PyInstaller', '--noconfirm', '--clean', '--name', 'ra
     '--collect-all', 'onnxruntime', '--collect-all', 'tokenizers', '--collect-all', 'sentencepiece',
     '--collect-all', 'librosa', '--collect-all', 'resampy',
     '--collect-submodules', 'ravi.local', '--collect-submodules', 'safetensors',
+    '--hidden-import', 'ravi.eval.masks', '--hidden-import', 'ravi.structure.labels',   # passage edit (splice)
     '--exclude-module', 'pyarrow', '--exclude-module', 'pandas',
     '--hidden-import', 'PIL', '--hidden-import', 'pyloudnorm', '--hidden-import', 'huggingface_hub',
     '--add-data', f'{ROOT / "desktop/dist"}:studio-ui',
