@@ -22,7 +22,7 @@
       "resources/ravi-local/**/*"
     ],
     "macOS": {
-      "minimumSystemVersion": "13.3"
+      "minimumSystemVersion": "14.0"
     },
     "icon": [
       "icons/icon.icns",

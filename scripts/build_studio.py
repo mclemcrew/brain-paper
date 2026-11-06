@@ -10,6 +10,15 @@ os.chdir(ROOT)
 os.environ['PYINSTALLER_CONFIG_DIR'] = str(ROOT / '.build/pyinstaller-cache')
 def run(*args, **kw): subprocess.run(list(map(str, args)), check=True, **kw)
 run(sys.executable, ROOT / 'scripts/apply_runtime_patches.py')
+# The MLX wheel must target macOS 14 (the oldest MLX supports), not the build host's release: a wheel
+# tagged for a newer macOS fails to load on older Macs ("built for macOS 26.2 which is newer than running OS").
+import importlib.util
+_mlx = Path(importlib.util.find_spec('mlx.core').origin).parent / 'lib/libmlx.dylib'
+_minos = subprocess.run(['otool', '-l', _mlx], capture_output=True, text=True).stdout
+_minos = next((l.split()[1] for l in _minos.splitlines() if l.strip().startswith('minos')), '?')
+if _minos != '14.0':
+    sys.exit(f"libmlx.dylib targets macOS {_minos}; install the macosx_14_0_arm64 wheels of mlx and mlx-metal "
+             "(pip download mlx mlx-metal --platform macosx_14_0_arm64 --only-binary=:all:) before building.")
 run('npm', '--prefix', 'desktop', 'run', 'check')
 run('npm', '--prefix', 'desktop', 'run', 'build')
 run(sys.executable, '-m', 'PyInstaller', '--noconfirm', '--clean', '--name', 'ravi-local',
