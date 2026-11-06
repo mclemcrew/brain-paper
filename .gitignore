@@ -17,6 +17,10 @@ manifests/chroma_cache.npz
 data/arms/
 runs_local/
 structure/
+!ravi/structure/
+ravi/structure/*
+!ravi/structure/__init__.py
+!ravi/structure/labels.py
 .local-runtime/
 .local-studio/
 desktop/dist/
