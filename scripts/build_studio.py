@@ -36,3 +36,9 @@ if local_cargo.exists():
     env.update(CARGO_HOME=str(local_cargo), RUSTUP_HOME=str(ROOT / '.local-runtime/rustup'))
     env['PATH'] = str(local_cargo / 'bin') + os.pathsep + env['PATH']
 run('npm', 'run', 'tauri', '--', 'build', cwd=ROOT / 'desktop', env=env)
+
+# The resource bundle changes after PyInstaller signs its executable. Sign the complete
+# development app last; this is ad-hoc signing, not Developer ID notarization.
+app = ROOT / 'desktop/src-tauri/target/release/bundle/macos/rAvI Studio.app'
+run('codesign', '--force', '--deep', '--sign', '-', app)
+run('codesign', '--verify', '--deep', '--strict', app)
