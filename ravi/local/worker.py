@@ -84,20 +84,60 @@ def write_render(path, audio, sample_rate=44100):
         "raw_sample_peak": peak, "applied_gain": gain,
         "gain_db": 20 * math.log10(gain), "export": "float WAV; sample-peak headroom, no hard clipping"})
 
+def _incomplete_bytes(cache_dir):
+    """Bytes written so far to huggingface_hub's in-progress blob(s) under cache_dir."""
+    total = 0
+    for part in Path(cache_dir).glob("models--*/blobs/*.incomplete"):
+        try: total += part.stat().st_size
+        except OSError: pass
+    return total
+
+
+def _watch_download(cache_dir, name, index, count, expected, stop, interval=1.0):
+    """Report within-file progress while hf_hub_download runs in the main thread.
+
+    The library only returns when a file is complete, so without this the bar sits at
+    index/count for the whole file; the first file of a pack is the multi-gigabyte DiT.
+    """
+    last = -1
+    while not stop.wait(interval):
+        done = _incomplete_bytes(cache_dir)
+        if done == last: continue
+        last = done
+        if expected:
+            frac = min(done / expected, 0.999)
+            msg = f"Downloading {name} · {done / 1e9:.2f} of {expected / 1e9:.2f} GB"
+        else:
+            frac = 0.0
+            msg = f"Downloading {name} · {done / 1e9:.2f} GB"
+        announce(msg, progress=(index + frac) / count)
+
+
 def install(spec):
     # Plain HTTP supports predictable timeout/retry and resumable downloads.
     os.environ["HF_HUB_DISABLE_XET"] = "1"
+    import threading
     from huggingface_hub import HfApi, hf_hub_download
     root = Path(spec["model_dir"])
     root.mkdir(parents=True, exist_ok=True)
     repo = "stabilityai/stable-audio-3-optimized"
-    # Resolve once, so all files in a pack belong to the same revision.
-    revision = HfApi().model_info(repo).sha
+    # Resolve once, so all files in a pack belong to the same revision; file sizes drive the progress bar.
+    info = HfApi().model_info(repo, files_metadata=True)
+    revision = info.sha
+    sizes = {s.rfilename: s.size for s in (info.siblings or []) if getattr(s, "size", None)}
+    cache_dir = root / ".download-cache"
+    files = weight_files(spec["model_id"])
     records = {}
-    for i, name in enumerate(weight_files(spec["model_id"])):
-        announce(f"Downloading {name}", progress=i / len(weight_files(spec["model_id"])))
-        downloaded = Path(hf_hub_download(repo, f"MLX/{name}", revision=revision,
-                                        cache_dir=str(root / ".download-cache")))
+    for i, name in enumerate(files):
+        expected = sizes.get(f"MLX/{name}")
+        announce(f"Downloading {name}", progress=i / len(files))
+        stop = threading.Event()
+        watcher = threading.Thread(target=_watch_download, args=(cache_dir, name, i, len(files), expected, stop), daemon=True)
+        watcher.start()
+        try:
+            downloaded = Path(hf_hub_download(repo, f"MLX/{name}", revision=revision, cache_dir=str(cache_dir)))
+        finally:
+            stop.set(); watcher.join(timeout=5)
         dst = root / name
         tmp = dst.with_suffix(".partial")
         # A real file, not a symlink into a disposable external cache.
